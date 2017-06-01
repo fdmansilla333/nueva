@@ -66,7 +66,14 @@ Template.contratos.events({
         // it will download the doc
         var numeroaletras = NumeroALetras(this.costoAlquiler);
 
-    }
+    },
+     'click .pagar': function (event, template) {
+        var respuesta = confirm("¿Esta seguro que desea pagar el cupón de pago?");
+        console.log(event.currentTarget.name);
+        if (respuesta) {
+            Meteor.call('cuponesPagos.update', event.currentTarget.name);
+        }
+    },
 });
 
 //Funcion para formatear las dates al formato requerido, se usa un helper

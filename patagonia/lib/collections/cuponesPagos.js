@@ -34,9 +34,15 @@ CuponesPagos.attachSchema(new SimpleSchema({
         type: Number,
         label: "Importe adeudado"
     },
+    fechaVencimiento:{
+        type: Date,
+        label:"Fecha de vencimiento"
+    },
     fechaPago: {
         type: Date,
-        label: "Fecha de pago"
+        optional: true,
+        label: "Fecha de pago",
+ 
     },
     pagado: {
         type: Boolean,
@@ -45,3 +51,18 @@ CuponesPagos.attachSchema(new SimpleSchema({
 
 
 }, { tracker: Tracker }));
+
+
+Meteor.methods({
+    'cuponesPago.remove'(cuponId) {
+        check(cuponId, String);
+        CuponesPagos.remove(cuponId);
+    },
+    'cuponesPago.insert'(cupon) {
+        console.log("Insertando cupon");
+        CuponesPagos.insert(cupon);
+    },
+    'cuponesPagos.update'(id){
+        console.log(id);
+    }
+});

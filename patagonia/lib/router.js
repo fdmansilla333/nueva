@@ -131,11 +131,17 @@ Router.route('/contratos/:_id', function () {
     var inmueble1 = Inmuebles.findOne({ _id: contratos.propiedad });
     
     var propietario1 = Personas.findOne({ cuit: inmueble1.propietario });
+
+    var cuponesPagos = CuponesPagos.find({contrato:contratos._id});
+    cuponesPagos = cuponesPagos.map(function(cupon){
+      return cupon;
+    });
     
     contratos.datosPropietario = propietario1;
     contratos.datosInquilino = inquilino1;
     contratos.datosInmueble = inmueble1;
     contratos.datosGarante = garante1;
+    contratos.cupones = cuponesPagos;
 
     contratos.selladoI = parseFloat(contratos.sellado)/2;
     contratos.selladoP = parseFloat(contratos.sellado)/2;
@@ -376,3 +382,5 @@ Router.route('/agregarPlano', function () {
 Router.route('/agregarReparacion', function(){
   this.render('agregarReparacion');
 });
+
+

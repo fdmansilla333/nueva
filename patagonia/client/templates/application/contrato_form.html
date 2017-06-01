@@ -160,6 +160,43 @@
            
               <hr size="20" />
             <h3><strong> Total de contrato: ${{contratoTotal}} </strong></h3>
+
+            <h2>Cupones de pago</h2>
+            {{#if cupones}}
+                 <table class="table table-hover">
+                <tr>
+
+                    <td> <strong>Periodo</strong></td>
+                    <td> <strong>Importe</strong></td>
+                    <td> <strong>Vencimiento </strong></td>
+                    <td> <strong>Fecha pago </strong></td>
+                    <td> <strong>¿Pagado?</strong></td>
+                </tr>
+        
+            {{#each cupon in cupones}}
+                <tr>
+
+                    <td>{{cupon.periodo}}</td>
+                    <td>{{cupon.importe}}</td>
+                    <td>{{formatDate cupon.fechaVencimiento}}</td>
+                    
+                    {{#if cupon.pagado}}
+                        <td>{{formatDate cupon.fechaPago}}</td>
+                       
+                    {{else}}
+                        <td>Falta abonar</td>
+                         <span class="right">
+                            <button type="button" class="btn btn-danger pagar" name={{cupon._id}}>Pagar</button>
+                        </span>
+                    {{/if}}
+                   
+
+
+                    
+                </tr>
+            {{/each}}
+                 </table>
+            {{/if}}
           
 
             <a href="{{ pathFor 'contratos'}}" class="btn btn-default">Volver </a>

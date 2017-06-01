@@ -141,11 +141,48 @@ Contratos.attachSchema(new SimpleSchema({
 }, { tracker: Tracker }));
 
 
+function generarCuponesDePagos(contrato, id) {
+    console.log("Generando cupones de pago");
+    console.log(contrato);
+    var esPrimero = true;
+    fechaVencimientoCuota=[];
+    for (i = 1; i <= contrato.duracionMeses; i++) {
+        importeCuota=0;
+        
+        if (esPrimero){
+            importeCuota = parseFloat(contrato.comisionInmobiliaria) + parseFloat(contrato.sellado)/2 + parseFloat(contrato.costoAlquiler);
+            esPrimero = false;
+            fechaVencimientoCuota = moment(contrato.inicioContrato).add(10, 'days').toDate();
+
+
+        }else{
+            importeCuota = parseFloat(contrato.costoAlquiler);
+            fechaVencimientoCuota = moment(fechaVencimientoCuota).add(1, 'months').toDate();
+        }
+
+        cupon = {
+            contrato: id,
+            periodo: i,
+            importe: importeCuota,
+            fechaVencimiento: fechaVencimientoCuota,
+            pagado: false,
+            
+
+        }
+
+        console.log(cupon);
+        CuponesPagos.insert(cupon);
+    }
+    console.log("Finalizado la generaciones de cupones");
+
+
+}
 
 Meteor.methods({
     'contratos.remove'(contratoId) {
         check(contratoId, String);
         Contratos.remove(contratoId);
+        CuponesPagos.remove({contrato:contratoId});
     },
     'contratos.insert'(contrato) {
         /*Tiene que existir un contrato, con la misma propiedad y en la misma fecha de vigencia.
@@ -185,17 +222,21 @@ Meteor.methods({
         var mesFin = contrato.finContrato.getMonth() + 1;
 
         var contratoTotal = ((anioFin - anioInicio) * 12 + (mesFin - mesInicio)) * costoAlquilerMensual;
-        contratoTotal =parseFloat(contrato.comisionInmobiliaria) + parseFloat(contratoTotal);
+        contratoTotal = parseFloat(contrato.comisionInmobiliaria) + parseFloat(contratoTotal);
         //sino se define el sellado se rellena de forma automatica
         if (!contrato.sellado) {
             contrato.sellado = (0.012 * contratoTotal);
         }
         contrato.impPagare = contrato.pagare * 0.012; //Pagaré 1,2 % del monto del pagaré, firma el garante.
 
-       
+
         contrato.contratoTotal = contratoTotal;
         contrato.duracionMeses = ((anioFin - anioInicio) * 12 + (mesFin - mesInicio));
-        Contratos.insert(contrato);
+        idContrato=Contratos.insert(contrato);
+        generarCuponesDePagos(contrato, idContrato);
+   
+
+        
     }
 
 });

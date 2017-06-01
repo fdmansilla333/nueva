@@ -1,0 +1,21 @@
+{
+    // Utilice IntelliSense para aprender sobre los atributos de depuración de Node.js. 
+    // Mantenga el puntero para ver las descripciones de los existentes atributos 
+    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    {
+        "type": "chrome",
+        "request": "launch",
+        "name": "Launch Chrome",
+        "url": "http://localhost:8080",
+        "webRoot": "${workspaceRoot}"
+    },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Iniciar programa",
+            "program": "${file}"
+        }
+    ]
+}
