@@ -1,0 +1,227 @@
+<template name="altaPersonas">
+    {{> homePersonas}} {{#autoForm collection="Personas" id="altaPersonas" type="insert"}}
+    <fieldset>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos personales</h3>
+
+            </div>
+            <h4> Los campos con (*) asterisco son obligatorios </h4>
+            <div class="panel-body">
+                {{> afQuickField name='cuit'}} {{> afQuickField name='apellido'}} {{> afQuickField name='nombre'}} {{> afFormGroup name='tipoDocumento'}}
+            </div>
+        </div>
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos de contacto</h3>
+            </div>
+            <div class="panel-body">
+                {{> afQuickField name='telefono'}} {{> afQuickField name='celular'}} {{> afQuickField name='email'}}
+            </div>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Dirección</h3>
+
+
+
+            </div>
+            <div class="panel-body">
+                {{> afFormGroup name='pais' options=paisOptions}} {{> afFormGroup name='provincia' options=pronviciaOptions}} {{> afFormGroup
+                name='localidad' options=localidadOptions}} {{#afModalShow formId="agregarDireccion" collection="Direcciones"
+                type="insert" class="btn btn-primary" title="Agregar dirección" prompt="Ingrese la nueva dirección" buttonContent="Agregar"}}
+                agregar dirección {{/afModalShow}}
+
+
+            </div>
+        </div>
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Domicilio</h3>
+            </div>
+            <div class="panel-body">
+                {{> afQuickField name='calle'}} {{> afQuickField name='nro'}} {{> afQuickField name='codigoPostal'}}
+            </div>
+        </div>
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos de facturación</h3>
+            </div>
+            <div class="panel-body">
+                {{> afFormGroup name='tipoCliente'}} {{> afQuickField name='cbu'}} {{> afQuickField name='condicionIva'}}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar persona</button>
+    </fieldset>
+    {{/autoForm}}
+
+</template>
+
+<template name="actualizarPersona">
+    {{> homePersonas}} {{#autoForm collection="Personas" doc=this id="actualizarPersona" type="update"}}
+
+
+    <fieldset>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos personales</h3>
+
+            </div>
+            <h4> Modifique los valores </h4>
+            <div class="panel-body">
+                <h3> CUIT: {{this.cuit}} </h3>
+                <h3> Apellido: {{this.apellido}} </h3>
+                <h3> Nombre: {{this.nombre}} </h3>
+                <h3> tipo de documento: {{this.tipoDocumento}} </h3>
+
+            </div>
+        </div>
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos de contacto</h3>
+            </div>
+            <div class="panel-body">
+                {{> afQuickField name='telefono'}} {{> afQuickField name='celular'}} {{> afQuickField name='email'}}
+            </div>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Dirección</h3>
+
+
+
+            </div>
+            <div class="panel-body">
+                {{> afFormGroup name='pais' options=paisOptions}} {{> afFormGroup name='provincia' options=pronviciaOptions}} {{> afFormGroup
+                name='localidad' options=localidadOptions}} {{#afModalShow formId="agregarDireccion" collection="Direcciones"
+                type="insert" class="btn btn-primary" title="Agregar dirección" prompt="Ingrese la nueva dirección" buttonContent="Agregar"}}
+                agregar dirección {{/afModalShow}}
+
+
+            </div>
+        </div>
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Domicilio</h3>
+            </div>
+            <div class="panel-body">
+                {{> afQuickField name='calle'}} {{> afQuickField name='nro'}} {{> afQuickField name='codigoPostal'}}
+            </div>
+        </div>
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos de facturación</h3>
+            </div>
+            <div class="panel-body">
+                {{> afFormGroup name='tipoCliente'}} {{> afQuickField name='cbu'}} {{> afQuickField name='condicionIva'}}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar datos</button>
+        <a class="btn btn-default" href="/personas" role="button">Volver</a>
+    </fieldset>
+    {{/autoForm}}
+
+</template>
+
+<template name="personas">
+    {{> homePersonas}}
+    <div class="container">
+        <div class="page-header">
+            <h1>Personas <small>Viendo clientes</small></h1>
+        </div>
+
+        <div class="row">
+            <h4>Cuadro de búsqueda:</h4>
+            {{> EasySearch.Input index=personas}}
+            <a class="btn btn-default" href="{{ pathFor 'altaPersona' }}">añadir nueva persona</a>
+        </div>
+
+
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+
+            <div class="panel-heading">Lista de clientes</div>
+            <table class="table table-hover">
+                <tr>
+                    <td><strong> Cuit </strong></td>
+                    <td> <strong> Apellido </strong></td>
+                    <td> <strong> Nombre </strong></td>
+                    <td> <strong> Tipo Cliente </strong></td>
+                    <td> <strong>Botones de operaciones</strong></td>
+                </tr>
+
+                {{#EasySearch.Each index=personas}}
+
+
+                <tr>
+                    <td>{{cuit}}</td>
+                    <td>{{apellido}}</td>
+                    <td>{{nombre}}</td>
+                    <td>{{tipoCliente}}</td>
+                    <span class="right">
+                        <a href="#" class="remove">
+                            <i class="material-icons">Eliminar </i>
+                        </a>
+                        <a href="{{ pathFor 'personasDetalle' _id=_id}}" class="secondary-content">
+                            <i class="material-icons">Detalle </i>
+                        </a>
+                         <a href="{{ pathFor 'actualizarPersona' _id=_id}}" class="secondary-content">
+                            <i class="material-icons">Actualizar </i>
+                        </a>
+                    </span>
+                </tr>
+                {{/EasySearch.Each}}
+            </table>
+            {{#EasySearch.IfNoResults index=personas}}
+            <div class="alert alert-danger" role="alert">
+                <strong>No hay resultados para mostrar!</strong> Cambia las palabras de búsqueda.
+            </div>
+            {{/EasySearch.IfNoResults}}
+        </div>
+
+        {{> EasySearch.Pagination index=personas}}
+
+    </div>
+</template>
+
+<template name="personasDetalle">
+    {{> homePersonas}}
+    <div class="container">
+        <div class="row">
+            <h2 class="text-center"> Datos personales </h2>
+            <div class="well">
+                <h3>Cuit: {{cuit}}</h3>
+                <h4>Apellido: {{apellido}}</h4>
+                <h4>Nombre: {{nombre}} </h4>
+                <h4>Tipo de Cliente: {{tipoCliente}}</h4>
+                <h4>Tipo de documento: {{tipoDocumento}} </h4>
+            </div>
+            <hr>
+            <h2 class="text-center"> Dirección y domicilio </h2>
+            <div class="well">
+                <h5>Pais: {{pais}}</h5>
+                <h5>Provincia: {{provincia}} </h5>
+                <h5>Localidad: {{localidad}} </h5>
+                <h5>Calle: {{calle}} Nro: {{nro}} Código postal:{{codigoPostal}}</h5>
+            </div>
+            <hr>
+            <h2 class="text-center"> Datos de contacto </h2>
+            <div class="well">
+                <h5>Telefono: {{telefono}} celular: {{celular}}</h5>
+                <h5>Email: {{email}}</h5>
+            </div>
+            <hr>
+            <h2 class="text-center">Datos de facturación </h2>
+            <div class="well">
+                <h4> CBU: {{cbu}} </h4>
+                <h5> Condición ante el iva: {{condicionIva}} </h5>
+                <h3> Saldo:$ {{caja}} </h3>
+            </div>
+
+
+
+            <a href="{{ pathFor 'personas'}}" class="btn btn-default">Volver </a>
+        </div>
+    </div>
+</template>

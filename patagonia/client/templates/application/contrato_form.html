@@ -1,0 +1,148 @@
+
+<template name="altaContrato">
+    {{> homeContratos}} 
+   {{#autoForm collection="Contratos" id="altaContrato" type="insert"}}
+    <fieldset>
+        <legend>Agregar un contrato:</legend>
+
+        {{> afQuickField name='propiedad' options=propiedadesOptions}} 
+        {{> afQuickField name='inquilino' options=inquilinoOptions}}
+        {{> afQuickField name='garante' options=garanteOptions}}
+         {{> afQuickField name='inicioContrato'}} 
+         {{> afQuickField name='finContrato'}}
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">$</span> {{> afQuickField name='costoAlquiler'}}
+                <span class="input-group-addon">Pesos Argentinos</span>
+            </div>
+        </div>
+          <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">$</span> {{> afQuickField name='comisionInmobiliaria'}}
+                <span class="input-group-addon">Pesos Argentinos</span>
+            </div>
+        </div>
+          <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">$</span> {{> afQuickField name='comisionAdministrativa'}}
+                <span class="input-group-addon">Pesos Argentinos</span>
+            </div>
+        </div>
+          <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">$</span> {{> afQuickField name='sellado'}}
+                <span class="input-group-addon">Pesos Argentinos</span>
+            </div>
+        </div>
+        
+    </fieldset>
+    <button type="submit" class="btn btn-primary">Agregar</button>
+    <button type="reset" class="btn btn-default">Limpiar</button> {{/autoForm}}
+</template>
+
+<template name="actualizarContrato">
+    {{> homeContratos}} {{> quickForm collection="Contratos" doc=this id="actualizarContrato" type="update"}}
+</template>
+
+<template name="contratos">
+    {{> homeContratos}}
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Contratos <small> vista de los contratos</small></h1>
+        </div>
+
+        <div class="row">
+            <h4>Cuadro de búsqueda:</h4>
+            {{> EasySearch.Input index=contratos}}
+            <a class="btn btn-default" href="{{ pathFor 'altaContrato' }}">añadir nuevo contrato</a>
+        </div>
+
+
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+
+            <div class="panel-heading">Lista de contratos</div>
+            <table class="table table-hover">
+                <tr>
+                    <td><strong> Propiedad </strong></td>
+                    <td> <strong>Inquilino </strong></td>
+                    <td> <strong>Garante </strong></td>
+                    <td> <strong>costo del Alquiler</strong></td>
+                    <td> <strong>Botones de operaciones</strong></td>
+                </tr>
+
+                {{#EasySearch.Each index=contratos}}
+
+
+                <tr>
+                    <td>{{propiedad}}</td>
+                    <td>{{inquilino}}</td>
+                    <td>{{garante}}</td>
+                    <td>${{costoAlquiler}}</td>
+                    <span class="right">
+                        <a href="#" class="remove">
+                            <i class="material-icons">Eliminar </i>
+                        </a>
+                        <a href="{{ pathFor 'contratosDetalle' _id=_id}}" class="secondary-content">
+                            <i class="material-icons">Detalle </i>
+                        </a>
+                         <a href="{{ pathFor 'actualizarContrato' _id=_id}}" class="secondary-content">
+                            <i class="material-icons">Actualizar </i>
+                        </a>
+                         <a href="#" class="pdf">
+                            <i class="material-icons">PDF</i>
+                        </a>
+                    </span>
+                </tr>
+                {{/EasySearch.Each}}
+            </table>
+            {{#EasySearch.IfNoResults index=contratos}}
+            <div class="alert alert-danger" role="alert">
+                <strong>No hay resultados para mostrar!</strong> Cambia las palabras de búsqueda.
+            </div>
+            {{/EasySearch.IfNoResults}}
+        </div>
+
+        {{> EasySearch.Pagination index=contratos}}
+
+
+
+    </div>
+</template>
+
+<template name="contratosDetalle">
+    {{> homeContratos}}
+    <div class="container">
+        <div class="row">
+            <h3>Dni del Propietario: {{propietario}}</h3>
+            <h4>Nombre: {{datosPropietario.apellido}} </h4>
+            <h4>Apellido: {{datosPropietario.nombre}} </h4>
+           
+                <hr size="10" />
+            <h3>Dni del Inquilino: {{inquilino}} </h3>
+            <h4>Apellido: {{datosInquilino.apellido}} </h4>
+            <h4>Nombre: {{datosInquilino.nombre}} </h4>
+            <hr size="10" />
+
+            <h3>Código de la Propiedad: {{propiedad}} </h3>
+            <h4> Algunos otros datos de la propiedad </h4>
+
+             <hr size="10" />
+             <h2> contrato: </h2>
+            <h3>Costo del alquiler mensual: ${{costoAlquiler}}</h3>
+            <h3>Inicio de contrato: {{formatDate inicioContrato}} </h3>
+            <h3>Fin de contrato: {{formatDate finContrato}} </h3>
+            <h3>Comision inmobiliaria: ${{comisionInmobiliaria}} </h3>
+            <h3>Comision Administrativa: ${{comisionAdministrativa}} </h3>
+            <h3>Total de meses del contrato: {{duracionMeses}} meses </h3>
+            <h3>Sellado: ${{sellado}} </h3>
+              <hr size="20" />
+            <h3><strong> Total de contrato: ${{contratoTotal}} </strong></h3>
+          
+
+            <a href="{{ pathFor 'contratos'}}" class="btn btn-default">Volver </a>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,336 @@
+<template name="inmuebles">
+    {{> homeInmuebles}}
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Inmuebles <small> vista de los inmuebles</small></h1>
+        </div>
+
+        <div class="row">
+            <h4>Cuadro de búsqueda:</h4>
+            {{> EasySearch.Input index=inmuebles}}
+            <a class="btn btn-default" href="{{ pathFor 'altaInmueble' }}">añadir nuevo inmueble</a>
+        </div>
+
+
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+
+            <div class="panel-heading">Lista de inmuebles</div>
+            <table class="table table-hover">
+                <tr>
+
+                    <td> <strong>Tipo de propiedad </strong></td>
+                    <td> <strong>Dni propietario </strong></td>
+                    <td> <strong>Calle </strong></td>
+                    <td> <strong>Nro </strong></td>
+                </tr>
+
+                {{#EasySearch.Each index=inmuebles}}
+
+
+                <tr>
+
+                    <td>{{tipo}}</td>
+                    <td>{{propietario}}</td>
+                    <td>{{calle}}</td>
+                    <td>{{nro}}</td>
+
+                    <span class="right">
+                        <a href="#" class="remove">
+                            <i class="material-icons">Eliminar </i>
+                        </a>
+                        <a href="{{ pathFor 'inmueblesDetalle' _id=_id}}" class="secondary-content">
+                            <i class="material-icons">Detalle </i>
+                        </a>
+                         <a href="{{ pathFor 'actualizarInmueble' _id=_id}}" class="secondary-content">
+                            <i class="material-icons">Actualizar </i>
+                        </a>
+                    </span>
+                </tr>
+                {{/EasySearch.Each}}
+            </table>
+            {{#EasySearch.IfNoResults index=inmuebles}}
+            <div class="alert alert-danger" role="alert">
+                <strong>No hay resultados para mostrar!</strong> Cambia las palabras de búsqueda.
+            </div>
+            {{/EasySearch.IfNoResults}}
+        </div>
+
+        {{> EasySearch.Pagination index=inmuebles}}
+
+
+
+    </div>
+</template>
+<template name="altaInmueble">
+    {{> homeInmuebles}} {{#autoForm collection="Inmuebles" id="altaInmueble" type="insert"}}
+    <fieldset>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos del Inmueble</h3>
+
+            </div>
+            <h4> Los campos con (*) asterisco son obligatorios </h4>
+            <div class="panel-body">
+                {{> afFormGroup name='tipo'}} {{> afFormGroup name='propietario'}}
+            </div>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Dirección</h3>
+            </div>
+            <div class="panel-body">
+                {{> afFormGroup name='pais' options=paisOptions}} {{> afFormGroup name='provincia' options=pronviciaOptions}} {{> afFormGroup
+                name='localidad' options=localidadOptions}} {{#afModalShow formId="agregarDireccion" collection="Direcciones"
+                type="insert" class="btn btn-primary" title="Agregar dirección" prompt="Ingrese la nueva dirección" buttonContent="Agregar"}}
+                agregar dirección {{/afModalShow}}
+
+
+            </div>
+        </div>
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Domicilio</h3>
+            </div>
+            <div class="panel-body">
+                {{> afQuickField name='calle'}} {{> afQuickField name='nro'}}
+
+            </div>
+        </div>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Tipo de bien</h3>
+            </div>
+            <div class="panel-body">
+                {{> afFormGroup name='tipoDeBien'}} {{#if tipoDeBienF}} {{> afObjectField name='datosDepto'}} {{/if}} {{> afQuickField name='superficieTerreno'}}
+                {{> afQuickField name='superficieCubierta'}} {{> afQuickField name='poseePlanos'}} {{> afQuickField name='poseeFotos'}}
+
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Agregar inmueble</button>
+    </fieldset>
+    {{/autoForm}}
+
+</template>
+
+<template name="actualizarInmueble">
+    {{> homeInmuebles}} {{> quickForm collection="Inmuebles" doc=this id="actualizarInmueble" type="update"}}
+</template>
+
+<template name="inmueblesDetalle">
+    {{> homeInmuebles}}
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos del inmueble</h3>
+
+            </div>
+            <div class="panel-body" align="center">
+                <div class="row">
+                    <h4>Dni del propietario: {{propietario}} </h4>
+                </div>
+                <div class="row">
+                    <h4>Tipo de inmueble: {{tipo}} </h4>
+                </div>
+                <div class="row">
+                    <h4>{{pais}} - {{provincia}} - {{localidad}} </h4>
+                </div>
+                <div class="row">
+                    <h4> Dirección: {{calle}} {{nro}} </h4>
+                </div>
+                <div class="row">
+                    <h4> Tipo de bien: {{tipoDeBien}} </h4>
+                </div>
+
+
+                {{#if datosDepto.sector}}
+                <div class="row">
+                    <h4> Sector {{datosDepto.sector}} piso {{datosDepto.piso}} escalera {{datosDepto.escalera}} identificación
+                        {{datosDepto.identificacion}}
+                    </h4>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+
+        <div class="container">
+            <br>
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    {{#each img in imagenes}} {{#if img.primeraVez}}
+                    <div class="item active">
+                        <img src={{img.url}} alt="{{img.nombreImagen}}" width="460" height="345">
+                        <div class="carousel-caption">
+                            <h3>"{{img.nombreImagen}}"</h3>
+                            <p>{{img.descripcion}}</p>
+                            <button type="button" class="btn btn-danger remove" name={{img.id}}>Eliminar</button>
+                        </div>
+                    </div>
+                    {{else}}
+                    <div class="item">
+                        <img src={{img.url}} alt="{{img.nombreImagen}}" width="460" height="345">
+                        <div class="carousel-caption">
+                            <h3>"{{img.nombreImagen}}"</h3>
+                            <p text-shadow="-2px 1px 20px rgba(0, 0, 0, 0.89);">{{img.descripcion}}</p>
+                            <button type="button" class="btn btn-danger remove" name={{img.id}}>Eliminar</button>
+                        </div>
+                    </div>
+                    {{/if}} {{/each}}
+
+                </div>
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Anterior</span>
+                    </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Siguiente</span>
+                    </a>
+            </div>
+        </div>
+        {{#if inventario}}
+        <div class="container">
+            <h3 align="center"> Inventario: </h3>
+            <ul class="list-group">
+                {{#each elemento in inventario}}
+                <li class="list-group-item">{{elemento}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        <div align="center">
+
+            <a href="{{ pathFor 'actualizarInventario' _id=_id}}" class="btn btn-default">Actualizar Inventario </a>
+        </div>
+        {{else}}
+        <div align="center">
+            <a href="{{ pathFor 'inmuebles'}}" class="btn btn-default">Volver </a>
+            <a href="{{ pathFor 'agregarInventario'}}" class="btn btn-default">¿cargar inventarios? </a>
+        </div>
+
+        {{/if}}
+
+
+        <h3 align="center"> Planos: </h3>
+        <ul class="list-group">
+            {{#each p in planos}}
+            <li class="list-group-item">{{p.descripcion}}
+                <a href={{p.url}}> <span class="glyphicon glyphicon-download" aria-hidden="true"></span> Descargar plano</a>
+
+                <button type="button" class="btn btn-danger removePlano" name={{p.id}}>Eliminar Plano</button>
+                <embed src='{{p.url}}' width='100%' height='100%'>
+            </li>
+            {{/each}}
+        </ul>
+
+        <h3 align="center"> Servicios: </h3>
+        <ul class="list-group">
+            {{#each s in servicios}}
+            <li align="center" class="list-group-item">{{s.descripcionServicio}} <b>${{s.tarifa}} </b> <button type="button" class="btn btn-danger removeServicio" name={{s.idServicio}}>Eliminar servicio</button></li>
+
+            {{/each}}
+        </ul>
+        {{#afModalShow formId="agregarServicio" collection="Servicios" type="insert" class="btn btn-primary" title="Agregar Servicio"
+        prompt="Ingrese el nuevo servicio" buttonContent="Agregar"}} Agregar servicio {{/afModalShow}}
+
+        <h3 align="center"> Reparaciones: </h3>
+        <ul class="list-group">
+            {{#each r in reparaciones}}
+            <li align="center" class="list-group-item">
+                Descripción: <b>{{r.descripcionReparacion}} </b>
+                Importe:<b>${{r.importeReparacion}} </b> 
+                Fecha:<b>{{r.fechaReparacion}} </b>
+                <button type="button" class="btn btn-danger removeReparacion" name={{r._id}}>Eliminar servicio</button>
+            </li>
+
+            {{/each}}
+        </ul>
+        <a href="{{ pathFor 'inmuebles'}}" class="btn btn-default">Volver </a>
+
+
+
+
+    </div>
+</template>
+
+<template name="agregarImagenInmueble">
+    {{> homeInmuebles}} {{#autoForm id="agregarImagen" type="insert" collection="imagenesInmuebles"}}
+    <fieldset>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Incorporar una imagen a un inmueble</h3>
+            </div>
+            <div class="panel-body">
+                {{> afQuickField name="codigo"}} {{> afQuickField name="idImagen" type="cfs-file" collection="imagenesInmueblesFS"}} {{>
+                afQuickField name="nombreImagen"}} {{> afQuickField name="descripcion"}}
+            </div>
+        </div>
+
+        <button type="submit">Agregar imagen</button>
+    </fieldset>
+    {{/autoForm}}
+
+
+    <ul class="pager">
+        <li><a href="/inmuebles">Volver</a></li>
+
+    </ul>
+
+</template>
+
+<template name="agregarPlano">
+    {{> homeInmuebles}} {{#autoForm id="agregarPlano" type="insert" collection="Planos"}}
+    <fieldset>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Agregar un plano de un inmueble</h3>
+            </div>
+            <div class="panel-body">
+                {{> afQuickField name="codigo"}} {{> afQuickField name="idPlano" type="cfs-file" collection="planoFS"}} {{> afQuickField
+                name="descripcion"}}
+            </div>
+        </div>
+
+        <button type="submit">Agregar plano</button>
+    </fieldset>
+    {{/autoForm}}
+
+
+    <ul class="pager">
+        <li><a href="/inmuebles">Volver</a></li>
+
+    </ul>
+
+</template>
+
+
+<template name="agregarReparacion">
+    {{> homeInmuebles}} {{#autoForm id="agregarReparacion" type="insert" collection="Reparaciones"}}
+    <fieldset>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Agregar una reparación al inmueble</h3>
+            </div>
+            <div class="panel-body">
+                {{> afQuickField name="codigo"}} {{> afQuickField name="descripcionReparacion"}} {{> afQuickField name= "importeReparacion"}}
+                {{> afQuickField name="fechaReparacion"}}
+            </div>
+        </div>
+
+        <button type="submit">Agregar reparación</button>
+    </fieldset>
+    {{/autoForm}}
+
+
+    <ul class="pager">
+        <li><a href="/inmuebles">Volver</a></li>
+
+    </ul>
+
+</template>

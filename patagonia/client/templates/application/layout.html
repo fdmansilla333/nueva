@@ -1,0 +1,95 @@
+<template name="home">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Inmobiliaria</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="inmuebles">Inmuebles<span class="sr-only">(current)</span></a></li>
+                    <li><a href="personas">Personas</a></li>
+                    <li><a href="contratos">Contratos</a></li>
+                    <li><a href="#">Caja</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</template>
+
+<template name="homeInmuebles">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Inmobiliaria</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="inmuebles" role="button" aria-haspopup="true" aria-expanded="false">
+      Inmuebles <span class="caret"></span>
+    </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/agregarImagenInmueble">Agregar imagen </a></li>
+                            <li><a href="/agregarInventario">Agregar elemento al inventario</a></li>
+                             <li><a href="/agregarPlano">Agregar plano</a></li>
+                             <li><a href="/agregarReparacion">Agregar Reparación</a></li>
+                            <li><a href="/inmuebles">Ir a inmuebles </a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/personas">Personas</a></li>
+                    <li><a href="/contratos">Contratos</a></li>
+                    <li><a href="#">Caja</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</template>
+
+<template name="homePersonas">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Inmobiliaria</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/inmuebles">Inmuebles</a></li>
+                    <!--<li class="active"><a href="/personas">Personas <span class="sr-only">(current)</span></a></li>-->
+
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="/personas" role="button" aria-haspopup="true" aria-expanded="false">
+      Personas <span class="caret"></span>
+    </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/altaPersona">alta persona </a></li>
+                            <li><a href="/agregarPersonaJuridica">alta persona jurídica</a></li>
+                            <li><a href="/personas">ver personas</a></li>
+                            <li><a href="/personasJuridicas">ver personas jurídicas</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="/contratos">Contratos</a></li>
+                    <li><a href="#">Caja</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</template>
+
+<template name="homeContratos">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Inmobiliaria</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/inmuebles">Inmuebles</a></li>
+                    <li><a href="/personas">Personas</a></li>
+                    <li class="active"><a href="/contratos">Contratos  <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Caja</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</template>

@@ -1,0 +1,222 @@
+<template name="actualizarPersonaJuridica">
+    {{> homePersonas}} {{#autoForm collection="PersonasJuridicas" doc=this id="actualizarPersonaJuridica" type="update"}}
+
+
+    <fieldset>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos personales</h3>
+
+            </div>
+            <h4> Modifique los valores </h4>
+            <div class="panel-body">
+
+                <h3> CUIT: {{this.cuit}} </h3>
+                <h3> Razon: {{this.razon}} </h3>
+
+            </div>
+        </div>
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos del representante legal</h3>
+            </div>
+            <div class="panel-body">
+                {{> afQuickField name='cuitRepresentanteLegal'}} 
+                {{> afQuickField name='nombreRepresentanteLegal'}} 
+                {{> afQuickField name='apellidoRepresentanteLegal'}}
+                {{> afQuickField name='domicilioRepresentante'}}
+                {{> afFormGroup name='actaOPoder'}}
+            </div>
+        </div>
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos del apoderado legal</h3>
+
+            </div>
+            <div class="panel-body">
+                {{> afQuickField name='cuitApoderadoLegal'}} 
+                {{> afQuickField name='nombreApoderadoLegal'}} 
+                {{> afQuickField name='apellidoApoderadoLegal'}}
+                {{> afQuickField name='domicilioApoderado'}}
+
+            </div>
+        </div>
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Archivo</h3>
+            </div>
+            <div class="panel-body">
+                {{> afQuickField name='nombreArchivo'}} 
+                {{> afQuickField name="idArchivo" type="cfs-file" collection="archivosFS"}}
+
+            </div>
+        </div>
+
+        
+        <button type="submit" class="btn btn-primary">Actualizar datos</button>
+        <a class="btn btn-default" href="/personasJuridicas" role="button">Volver</a>
+    </fieldset>
+    {{/autoForm}}
+
+</template>
+
+<template name="personasJuridicas">
+    {{> homePersonas}}
+    <div class="container">
+        <div class="page-header">
+            <h1>Personas jurídicas <small>Viendo clientes</small></h1>
+        </div>
+
+        <div class="row">
+            <h4>Cuadro de búsqueda:</h4>
+            {{> EasySearch.Input index=personasJuridicas}}
+            <a class="btn btn-default" href="{{ pathFor 'agregarPersonaJuridica' }}">Agregar persona jurídica</a>
+        </div>
+
+
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+
+            <div class="panel-heading">Lista de clientes</div>
+            <table class="table table-hover">
+                <tr>
+                    <td><strong> Cuit </strong></td>
+                    <td> <strong> Razon </strong></td>
+                    <td> <strong> Cuit</strong></td>
+                    <td> <strong> Apellido del representante legal </strong></td>
+                    <td> <strong>Botones de operaciones</strong></td>
+                </tr>
+
+                {{#EasySearch.Each index=personasJuridicas}}
+
+
+                <tr>
+                    <td>{{cuit}}</td>
+                    <td>{{razon}}</td>
+                    <td>{{cuit}}</td>
+                    <td>{{apellidoRepresentanteLegal}}</td>
+                    <span class="right">
+                        <a href="#" class="remove">
+                            <i class="material-icons">Eliminar </i>
+                        </a>
+                        <a href="{{ pathFor 'personasJuridicasDetalle' _id=_id}}" class="secondary-content">
+                            <i class="material-icons">Detalle </i>
+                        </a>
+                         <a href="{{ pathFor 'actualizarPersonaJuridica' _id=_id}}" class="secondary-content">
+                            <i class="material-icons">Actualizar </i>
+                        </a>
+                    </span>
+                </tr>
+                {{/EasySearch.Each}}
+            </table>
+            {{#EasySearch.IfNoResults index=personasJuridicas}}
+            <div class="alert alert-danger" role="alert">
+                <strong>No hay resultados para mostrar!</strong> Cambia las palabras de búsqueda.
+            </div>
+            {{/EasySearch.IfNoResults}}
+        </div>
+
+        {{> EasySearch.Pagination index=personasJuridicas}}
+
+    </div>
+</template>
+
+<template name="personasJuridicasDetalle">
+    {{> homePersonas}}
+    <div class="container">
+        <div class="row">
+            <h2 class="text-center"> Datos: </h2>
+            <div class="well">
+                <h3>Cuit: {{cuit}}</h3>
+                <h4>Razon: {{razon}}</h4>
+                <h4>Cuit del representante legal: {{cuitRepresentanteLegal}}</h4>
+                <h4>Nombre del representante legal: {{nombreRepresentanteLegal}} </h4>
+                <h4>Apellido del representante legal: {{apellidoRepresentanteLegal}} </h4>
+                <h4>Domicilio del representante:{{domicilioRepresentante}}</h4>
+            </div>
+            <hr>
+            {{#if actaOPoder}}
+            <h2 class="text-center">Acta o poder</h2>
+            <div class="well">
+                <h5>Presentó acta</h5>
+
+                <h5>link del archivo: <a href="{{url}}">clic aquí para abrirlo</a> </h5> 
+                
+            </div>
+            {{else}}
+            <h2 class="text-center">Acta o poder</h2>
+            <div class="well">
+                <h5>No presentó acta</h5>
+
+                <h5>link del archivo: <a href="{{url}}">clic aquí para abrirlo</a> </h5> 
+                
+            </div>
+            {{/if}}
+            <hr>
+            {{#if cuitApoderadoLegal}}
+            <h2 class="text-center"> Datos del apoderado legal </h2>
+            <div class="well">
+                <h5>Cuit del apoderado legal:{{cuitApoderadoLegal}}</h5>
+                <h5>Nombre del apoderado legal: {{nombreApoderadoLegal}}</h5>
+                <h5>Apellido del apoderado legal: {{apellidoApoderadoLegal}} </h5>
+                <h5>Domicilio del apoderado: {{domicilioApoderado}} </h5>
+
+            </div>
+            {{/if}}
+            <hr>
+            <a href="{{ pathFor 'personasJuridicas'}}" class="btn btn-default">Volver </a>
+        </div>
+    </div>
+</template>
+
+<template name="agregarPersonaJuridica">
+    {{> homePersonas}} {{#autoForm collection="PersonasJuridicas" id="altaPersonasJuridicas" type="insert"}}
+    <fieldset>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos personales</h3>
+
+            </div>
+            <h4> Los campos con (*) asterisco son obligatorios </h4>
+            <div class="panel-body">
+                {{> afQuickField name='cuit'}} 
+                {{> afQuickField name='razon'}} 
+                {{> afQuickField name='cuitRepresentanteLegal'}} 
+                {{> afQuickField name='nombreRepresentanteLegal'}} 
+                {{> afQuickField name='apellidoRepresentanteLegal'}} 
+                {{> afQuickField name='domicilioRepresentante'}}
+                {{> afFormGroup name='actaOPoder'}}
+            </div>
+
+
+        </div>
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos del apoderado legal</h3>
+                <h4>No es necesario completar esta sección</h4>
+            </div>
+            <div class="panel-body">
+                {{> afQuickField name='cuitApoderadoLegal'}} 
+                {{> afQuickField name='nombreApoderadoLegal'}} 
+                {{> afQuickField name='apellidoApoderadoLegal'}}
+                {{> afQuickField name='domicilioApoderado'}}
+
+            </div>
+        </div>
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Archivo</h3>
+            </div>
+            <div class="panel-body">
+                {{> afQuickField name='nombreArchivo'}} 
+                {{> afQuickField name="idArchivo" type="cfs-file" collection="archivosFS"}}
+
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar persona jurídica </button>
+        <a class="btn btn-default" href='/personasJuridicas' role="button">Volver</a>
+    </fieldset>
+    {{/autoForm}}
+
+</template>

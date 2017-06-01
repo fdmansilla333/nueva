@@ -1,0 +1,77 @@
+<template name="agregarInventario">
+  {{> homeInmuebles}} {{#autoForm id="agregarInventario" collection="Inventario" type="insert"}}
+  <fieldset>
+    <div align="center">
+
+      {{> afQuickField name="codigo"}} {{> afArrayField name="elemento"}}
+
+      <!--{{> afArrayField  name="elemento" template="detalle"}}-->
+    </div>
+    <div align="center">
+      <div class="btn-group" role="group" aria-label="...">
+        <button class="btn btn-info" type="submit">Agregar inventario</button>
+        <a href="/inmuebles" class="btn btn-info" role="button"> Volver</a>
+      </div>
+    </div>
+  </fieldset>
+  {{/autoForm}}
+
+</template>
+
+<template name="afArrayField_detalle">
+  <div class="panel {{panelClass}}">
+    <div class="panel-heading {{headingClass}}">{{afFieldLabelText name=this.atts.name}}</div>
+    {{#if afFieldIsInvalid name=this.atts.name}}
+    <div class="panel-body has-error">
+      <span class="help-block">{{{afFieldMessage name=this.atts.name}}}</span>
+    </div>
+    {{/if}}
+    <ul class="list-group">
+      {{#afEachArrayItem name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
+      <li class="list-group-item autoform-array-item">
+        <div>
+          <div class="autoform-remove-item-wrap">
+            {{#if afArrayFieldHasMoreThanMinimum name=../atts.name minCount=../atts.minCount maxCount=../atts.maxCount}}
+            <button type="button" class="btn btn-primary autoform-remove-item"><span class="glyphicon glyphicon-minus"></span></button>            {{/if}}
+          </div>
+
+          <div class="autoform-array-item-body">
+            <!--{{> afObjectField name="elemento.$"}}-->
+            {{> afQuickField name="elemento"}} {{> afQuickField name="elemento.$.nombre"}} {{> afQuickField name="elemento.$.descripcion"}}
+          </div>
+
+        </div>
+      </li>
+
+      {{/afEachArrayItem}} {{#if afArrayFieldHasLessThanMaximum name=this.atts.name minCount=this.atts.minCount maxCount=this.atts.maxCount}}
+      <li class="list-group-item">
+        <button type="button" class="btn btn-primary autoform-add-item" data-autoform-field="{{this.atts.name}}" data-autoform-minCount="{{this.atts.minCount}}"
+          data-autoform-maxCount="{{this.atts.maxCount}}"><span class="glyphicon glyphicon-plus"></span></button>
+      </li>
+      {{/if}}
+    </ul>
+
+  </div>
+</template>
+
+
+<template name="actualizarInventario">
+{{> homeInmuebles}} 
+{{#autoForm  collection="Inventario" id="actualizarInventario" doc=this type="update"}}
+  <fieldset>
+    <div align="center">
+
+      <h2> Actualice el inventario </h2>
+       {{> afArrayField name="elemento"}}
+
+   
+    </div>
+    <div align="center">
+      <div class="btn-group" role="group" aria-label="...">
+        <button class="btn btn-info" type="submit">actualizar inventario</button>
+        <a href="/inmuebles" class="btn btn-info" role="button"> Volver</a>
+      </div>
+    </div>
+  </fieldset>
+  {{/autoForm}}
+</template>
