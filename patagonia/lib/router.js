@@ -122,19 +122,25 @@ Router.route('/contratos/:_id', function () {
 
   let contratos = Contratos.findOne({ _id: this.params._id });
 
-
-
-
-
   if (!contratos) {
     Router.go('contratos');
   } else {
-    var propietario1 = Personas.findOne({ dni: contratos.propietario });
-    var inquilino1 = Personas.findOne({ dni: contratos.inquilino });
-    var inmueble1 = Inmuebles.findOne({ codigo: contratos.propiedad });
+  
+    var inquilino1 = Personas.findOne({ cuit: contratos.inquilino });
+    var garante1 = Personas.findOne({cuit:contratos.garante});
+    var inmueble1 = Inmuebles.findOne({ _id: contratos.propiedad });
+    
+    var propietario1 = Personas.findOne({ cuit: inmueble1.propietario });
+    
     contratos.datosPropietario = propietario1;
     contratos.datosInquilino = inquilino1;
     contratos.datosInmueble = inmueble1;
+    contratos.datosGarante = garante1;
+
+    contratos.selladoI = parseFloat(contratos.sellado)/2;
+    contratos.selladoP = parseFloat(contratos.sellado)/2;
+    contratos.comisionAdministrativaP = parseFloat(contratos.comisionAdministrativa)/100* parseFloat(contratos.contratoTotal);
+
     console.log(contratos);
     this.render('contratosDetalle', {
       data: contratos

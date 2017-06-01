@@ -58,20 +58,29 @@ OK!
 
 Viernes
 #sección contratos... 
-combo codigo busca por propietario -> dirección -> código
-Comision administrativa a porcentaje
-Sellado es 1,2% de la totalidad del contrato, para el inquilino y para el propietario (mitad)
-Pagaré 1,2 % del monto del pagaré, firma el garante. 
+combo codigo busca por propietario -> dirección -> código ok!
+Comision administrativa a porcentaje -> ok!
 
-No diseñar PDF, *Investigar Word
-Obligatorios, nombre, apellido, dni-lc, cuit, 
+Sellado es 1,2% de la totalidad del contrato, para el inquilino y para el propietario (mitad)--ok
+
+Pagaré 1,2 % del monto del pagaré, firma el garante. ok!
+
+
+Obligatorios, nombre, apellido, dni-lc, cuit, ok!
+
+
+La comision administrativa va al propietario ok!
+
+
 Agregar corrimiento de días, para vencimiento de periodos, y habilitarlo el cambio en futuro sin cambiar valores confirmados
-La comision administrativa va al propietario
+
 La inmobiliaria inquilino y propietario
 Multa del sellado, y sellado miti y miti
 Contratos obligatorios: periodos, partes intervinientes, monto,
 Deposito en garantía, si/no, monto, impacta en el saldo del inquilino a favor.
 Agregar campo garante. (Tiene persona)
+
+
 Baja de contrato. baja anticipada de contrato
 Manejo de contratos, cuando se tiene un venta/alquiler en el inmueble, si se vende, tiene que cancelarse el contrato, con la entrega de la llave. Resicisión anticipada del contrato.
 
@@ -95,4 +104,7 @@ Notas de debito, para los servicios.
 Condición ante el iva: monotributista, resposable inscripto, exento, no inscripto, 
 
 TODO falta agregar las tarifas de los servicios, y que repercutan en los recibos
+
+
+No diseñar PDF, *Investigar Word
 

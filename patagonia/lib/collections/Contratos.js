@@ -78,9 +78,9 @@ Contratos.attachSchema(new SimpleSchema({
     },
     comisionAdministrativa: {
         type: Number,
-        label: "Comisión administrativa",
+        label: "Comisión administrativa %",
         autoform: {
-            placeholder: "Ingrese la comisión administrativa. Ej: 1239.23",
+            placeholder: "Ingrese la comisión administrativa. Ej: 12",
             step: 0.001,
         }
     },
@@ -92,7 +92,7 @@ Contratos.attachSchema(new SimpleSchema({
             autovalue() {
                 return 0;
             },
-            placeholder:'Ingrese el sellado',
+            placeholder: 'Ingrese el sellado',
         }
     },
     duracionMeses: {
@@ -105,6 +105,25 @@ Contratos.attachSchema(new SimpleSchema({
                 return 0;
             }
         }
+    },
+    pagare: {
+        type: Number,
+        label: "Pagare",
+        autoform: {
+            placeholder: "Ingrese el monto del pagaré. Ej: 1234",
+            step: 0.001,
+        }
+    },
+    impPagare: {
+        type: Number,
+        label: "Impuesto pagaré",
+        optional: true,
+        autoform: {
+            placeholder: "Calculado",
+            type: "hidden",
+            step: 0.001,
+        }
+
     },
     contratoTotal: {
         type: Number,
@@ -137,7 +156,7 @@ Meteor.methods({
         $gte  valores mayores e iguales que       */
 
         //si encuentro una propiedad que tenga contrato que comience dentro del intervalo
-        if (contrato.inicioContrato >= contrato.finContrato){
+        if (contrato.inicioContrato >= contrato.finContrato) {
             throw new Meteor.Error("Contrato", "La fecha de inicio no puede ser superior a la fecha de fin de contrato");
         }
         c1 = Contratos.findOne({ "propiedad": contrato.propiedad, $and: [{ "inicioContrato": { $lte: contrato.inicioContrato } }, { "finContrato": { $gte: contrato.inicioContrato } }] });
@@ -166,16 +185,14 @@ Meteor.methods({
         var mesFin = contrato.finContrato.getMonth() + 1;
 
         var contratoTotal = ((anioFin - anioInicio) * 12 + (mesFin - mesInicio)) * costoAlquilerMensual;
-        contratoTotal = contrato.comisionAdministrativa + contrato.comisionInmobiliaria + contratoTotal;
+        contratoTotal =parseFloat(contrato.comisionInmobiliaria) + parseFloat(contratoTotal);
         //sino se define el sellado se rellena de forma automatica
         if (!contrato.sellado) {
-
-            //TODO ver si el importe del 12 por ciento puede cambiar
-            //TODO ver si es posible si se puede agregar del lado del cliente
-            //Existe un minimo y un maximo en la fecha de los contratos
-            //TODO calcular bien los meses del contrato con los años
-            contrato.sellado = (0.12 * contratoTotal);
+            contrato.sellado = (0.012 * contratoTotal);
         }
+        contrato.impPagare = contrato.pagare * 0.012; //Pagaré 1,2 % del monto del pagaré, firma el garante.
+
+       
         contrato.contratoTotal = contratoTotal;
         contrato.duracionMeses = ((anioFin - anioInicio) * 12 + (mesFin - mesInicio));
         Contratos.insert(contrato);

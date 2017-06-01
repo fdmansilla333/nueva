@@ -24,13 +24,19 @@
         </div>
           <div class="form-group">
             <div class="input-group">
-                <span class="input-group-addon">$</span> {{> afQuickField name='comisionAdministrativa'}}
-                <span class="input-group-addon">Pesos Argentinos</span>
+                <span class="input-group-addon">%</span> {{> afQuickField name='comisionAdministrativa'}}
+                <span class="input-group-addon">Porcentaje</span>
             </div>
         </div>
           <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon">$</span> {{> afQuickField name='sellado'}}
+                <span class="input-group-addon">Pesos Argentinos</span>
+            </div>
+        </div>
+           <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">$</span> {{> afQuickField name='pagare'}}
                 <span class="input-group-addon">Pesos Argentinos</span>
             </div>
         </div>
@@ -116,28 +122,42 @@
     {{> homeContratos}}
     <div class="container">
         <div class="row">
-            <h3>Dni del Propietario: {{propietario}}</h3>
+            <h3>Cuit del Propietario: {{propietario}}</h3>
             <h4>Nombre: {{datosPropietario.apellido}} </h4>
             <h4>Apellido: {{datosPropietario.nombre}} </h4>
            
                 <hr size="10" />
-            <h3>Dni del Inquilino: {{inquilino}} </h3>
+            <h3>Cuit del Inquilino: {{inquilino}} </h3>
             <h4>Apellido: {{datosInquilino.apellido}} </h4>
             <h4>Nombre: {{datosInquilino.nombre}} </h4>
+            <hr size="10" />
+
+
+            <h3>Cuit del garante: {{garante}} </h3>
+            <h4>Apellido: {{datosGarante.apellido}} </h4>
+            <h4>Nombre: {{datosGarante.nombre}} </h4>
             <hr size="10" />
 
             <h3>Código de la Propiedad: {{propiedad}} </h3>
             <h4> Algunos otros datos de la propiedad </h4>
 
              <hr size="10" />
-             <h2> contrato: </h2>
+             <h2> Contrato: </h2>
             <h3>Costo del alquiler mensual: ${{costoAlquiler}}</h3>
             <h3>Inicio de contrato: {{formatDate inicioContrato}} </h3>
             <h3>Fin de contrato: {{formatDate finContrato}} </h3>
+               <hr size="10" />
             <h3>Comision inmobiliaria: ${{comisionInmobiliaria}} </h3>
-            <h3>Comision Administrativa: ${{comisionAdministrativa}} </h3>
-            <h3>Total de meses del contrato: {{duracionMeses}} meses </h3>
+            <h3>Comision Administrativa: %{{comisionAdministrativa}} </h3>
+            <h3>Pago del propietario: ${{comisionAdministrativaP}} </h3>
             <h3>Sellado: ${{sellado}} </h3>
+            <h3>Sellado inquilino: ${{selladoI}} </h3>
+            <h3>Sellado propietario: ${{selladoP}} </h3>
+            <h3>Impuesto del pagaré: ${{impPagare}} </h3>
+            <h3>Total del pagaré: ${{pagare}} </h3>
+            <h3>Total de meses del contrato: {{duracionMeses}} meses </h3>
+            
+           
               <hr size="20" />
             <h3><strong> Total de contrato: ${{contratoTotal}} </strong></h3>
           
