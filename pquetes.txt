@@ -1,0 +1,6 @@
+Paquetes que se instalaron:
+desinstale autoform 6.1
+meteor add peppelg:bootstrap-3-modal link
+meteor add aldeed:delete-button link
+meteor add aposidelov:autoform-bootstrap-modal
+Use afModalShow template to create a link that will trigger the modal

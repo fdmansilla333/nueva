@@ -1,0 +1,98 @@
+Martes
+#Personas
+Pais, argentina por defecto
+Ciudades por defecto, Trelew, Rawson, Puerto Madryn, Esquel, Gaiman, campo vacio para completar. Coleccion de direcciones.
+OK!
+
+Controlar cuit y dni, que sean los mismos.
+Libreta civica. #preguntar Tener en cuenta que existe libreta de enrolamiento
+Dentro de persona, Persona jurídica y persona física.
+Ok!
+
+Si es jurídica: cuit, razon social, representante legal (nombre completo, cuit, domicilio),apoderado legal(nombre completo, cuit, domicilio)  poder o acta de representación (tilde), archivo referido a la representación
+ok!
+
+**agregar sección Personas físicas, Personas jurídicas 
+Modal, salgan la carga de personas. 
+Agregar recuadros por temática
+Listo!
+
+Miércoles
+#Inmuebles
+vista agregarImagenInmueble cambiar campo, codigo del inmueble
+aparezca nombre del propietario y dirección del inmueble
+OK!
+
+Mostrar mensaje que cargo la foto o no. ok!
+
+Carga de imagen y luego nombre. ok!
+Agregar campo descripción. ok!
+Agregar si es posible presentación. ok!
+
+Codigo del inmueble = automatizado, ascendente. no visible. VER! (codigo del objeto manejado internamente) ok!
+
+Obligatorios: Pais(por def argentina), prov, localidad, calle, nro, codigo postal, OK! 
+
+tipoInmueble(dpto(Sector, piso, esc, depto), local(depto), duplex, casa, galpon, lote, chacra, estancia)
+superficie terreno, cubierta
+planos tilde, fotos tilde
+ok!
+
+Jueves
+#Sección de inventario de bienes:
+Cuenta con... agregar tilde y descripcion
+OK!
+
+[Seccion] planos, adjuntar archivo. OK!
+
+[TODO]Servicios aparte
+Gas, luz agua y cloacas, telefono, cable, con tilde para alquileres
+Si los importes de los servicios son 0, quiere decir que la inmobiliaria no toma parte.
+Si son distinto, 
+Si esta con contrato, paga el inquilino, sino esta alquilado paga el propietario.
+OK! 
+
+
+#Reparaciones seccion aparte
+OK!
+
+Viernes
+#sección contratos... 
+combo codigo busca por propietario -> dirección -> código
+Comision administrativa a porcentaje
+Sellado es 1,2% de la totalidad del contrato, para el inquilino y para el propietario (mitad)
+Pagaré 1,2 % del monto del pagaré, firma el garante. 
+
+No diseñar PDF, *Investigar Word
+Obligatorios, nombre, apellido, dni-lc, cuit, 
+Agregar corrimiento de días, para vencimiento de periodos, y habilitarlo el cambio en futuro sin cambiar valores confirmados
+La comision administrativa va al propietario
+La inmobiliaria inquilino y propietario
+Multa del sellado, y sellado miti y miti
+Contratos obligatorios: periodos, partes intervinientes, monto,
+Deposito en garantía, si/no, monto, impacta en el saldo del inquilino a favor.
+Agregar campo garante. (Tiene persona)
+Baja de contrato. baja anticipada de contrato
+Manejo de contratos, cuando se tiene un venta/alquiler en el inmueble, si se vende, tiene que cancelarse el contrato, con la entrega de la llave. Resicisión anticipada del contrato.
+
+
+#Caja --> pasa a ser saldo
+
+#Generacion de recibos
+Generacion de pago, existen pagos parciales. Calculo de la mora apartir de 10 días de corrimiento del vencimiento mensual.  La mora puede ser un porcentaje del valor mensual o fijo por dia. 
+Las liquidaciones del propietario son opcionales/eventuales
+Agregar notas de credito a personas 
+
+
+Las reparaciones pueden ir a cargo de la inmobiliaria, o a cargo del propietario. Si van a cargo del propietario tiene que aparecer en el recibo. Si va en la inmobiliaria deben registrarse como un movimiento. Producto, cantidad y valor, descripción o concepto
+
+
+Las reparaciones tienen que tener un tilde, para pagar en efectivo.
+Al pagar un recibo, tiene que aparecer un campo de servicios. 
+
+Notas de debito, para los servicios. 
+
+Condición ante el iva: monotributista, resposable inscripto, exento, no inscripto, 
+
+TODO falta agregar las tarifas de los servicios, y que repercutan en los recibos
+

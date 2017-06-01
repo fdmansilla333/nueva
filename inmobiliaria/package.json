@@ -1,0 +1,14 @@
+{
+  "name": "inmobiliaria",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.20.0",
+    "fs-extra": "^3.0.1",
+    "lodash": "^4.17.0",
+    "meteor-node-stubs": "~0.2.4",
+    "simpl-schema": "^0.2.3"
+  }
+}
