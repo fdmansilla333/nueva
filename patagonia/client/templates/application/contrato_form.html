@@ -36,10 +36,47 @@
         </div>
            <div class="form-group">
             <div class="input-group">
+                <span class="input-group-addon">$</span> {{> afQuickField name='multaSellado'}}
+                <span class="input-group-addon">Pesos Argentinos</span>
+            </div>
+        </div>
+           <div class="form-group">
+            <div class="input-group">
                 <span class="input-group-addon">$</span> {{> afQuickField name='pagare'}}
                 <span class="input-group-addon">Pesos Argentinos</span>
             </div>
         </div>
+        
+          <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">$</span> {{> afQuickField name='impPagare'}}
+                <span class="input-group-addon">Pesos Argentinos</span>
+            </div>
+        </div>
+           <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">$</span> {{> afQuickField name='depositoGarantia'}}
+                <span class="input-group-addon">Pesos Argentinos</span>
+            </div>
+        </div>
+          {{> afQuickField name='tipoDeMora'}}
+            {{#if tipoDeMoraF}}
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">%</span> {{> afQuickField name='moraPorcentaje'}}
+                    <span class="input-group-addon">Porcentaje</span>
+                </div>
+            </div>
+            {{else}}
+             <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">%</span> {{> afQuickField name='moraFijo'}}
+                    <span class="input-group-addon">Porcentaje</span>
+                </div>
+            </div>
+            {{/if}}
+
+        
         
     </fieldset>
     <button type="submit" class="btn btn-primary">Agregar</button>
@@ -161,7 +198,7 @@
               <hr size="20" />
             <h3><strong> Total de contrato: ${{contratoTotal}} </strong></h3>
 
-            <h2>Cupones de pago</h2>
+            <h2 align="center">Cupones de pago</h2>
             {{#if cupones}}
                  <table class="table table-hover">
                 <tr>
@@ -182,6 +219,9 @@
                     
                     {{#if cupon.pagado}}
                         <td>{{formatDate cupon.fechaPago}}</td>
+                         <span class="right">
+                            <button type="button" class="btn btn-info pagado">Pagado</button>
+                        </span>
                        
                     {{else}}
                         <td>Falta abonar</td>
@@ -194,6 +234,7 @@
 
                     
                 </tr>
+                <hr>
             {{/each}}
                  </table>
             {{/if}}

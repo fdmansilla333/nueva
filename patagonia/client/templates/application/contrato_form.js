@@ -1,4 +1,4 @@
-import { Contratos } from '../../../lib/collections/Contratos';
+//import { Contratos } from '../../../lib/collections/Contratos';
 
 import { Router } from 'meteor/iron:router';
 
@@ -46,7 +46,67 @@ Template.actualizarContrato.onCreated(function () {
     })
 });
 
+function buscarInmueble(idContrato){
+    console.log("Buscando servicios...");
+    contrato=Contratos.findOne({_id:idContrato});
+    if(contrato){
+        //si encontre un contrato, obtengo el id del inmueble
+        reparaciones=Reparaciones.find({_id:contrato.propiedad});
+        if(reparaciones){
+            //TODO seguir
+        }
+        
+    }
 
+}
+function buscarImporteConMora(contrato, importe, cantidadDias){
+    contrato=Contratos.findOne({_id:contrato});
+    if (contrato){
+        if (contrato.tipoDeMora){
+            console.log("Tipo de mora valor fijo");
+            return parseFloat(contrato.moraFijo) * parseFloat(cantidadDias) + importe;
+        }else{
+            console.log("Tipo de mora porcentaje");
+             return parseFloat(importe) + ((parseFloat(contrato.moraPorcentaje) / 100) * parseFloat(cantidadDias) * parseFloat(importe));
+
+        }
+    }
+}
+Template.contratosDetalle.events({
+    'click .pagar': function (event, template) {
+        var respuesta = confirm("¿Esta seguro que desea pagar el cupón de pago?");
+        console.log(event.currentTarget.name);
+        if (respuesta) {
+            cupon = CuponesPagos.findOne({ _id: event.currentTarget.name });
+            hoy = new Date;
+            if (cupon.fechaVencimiento < hoy) {
+                console.log("Existe mora");
+                cantidadDias = moment(hoy).diff(cupon.fechaVencimiento, 'days');
+                alert("Existe mora, la cantidad de días de mora es:" + String(cantidadDias));
+                cupon.importe =buscarImporteConMora(cupon.contrato, cupon.importe, cantidadDias);
+                console.log(cupon.importe);
+
+                var respuesta = confirm("Acepta pagar el Importe con moratoria: $" + String(cupon.importe));
+                if (respuesta) {
+                    Meteor.call('cuponesPagos.remove', cupon._id);
+                    cupon.pagado = true;
+                    cupon.fechaPago = new Date;
+                    Meteor.call('cuponesPagos.insert', cupon);
+                } else {
+                    alert("Operación cancelada");
+                }
+
+            } else {
+                Meteor.call('cuponesPagos.remove', cupon._id);
+                cupon.pagado = true;
+                cupon.fechaPago = new Date;
+                Meteor.call('cuponesPagos.insert', cupon);
+
+            }
+
+        }
+    }
+});
 Template.contratos.events({
     'click .remove': function (event, template) {
         var respuesta = confirm("¿Esta seguro que desea eliminar el contrato?");
@@ -67,13 +127,7 @@ Template.contratos.events({
         var numeroaletras = NumeroALetras(this.costoAlquiler);
 
     },
-     'click .pagar': function (event, template) {
-        var respuesta = confirm("¿Esta seguro que desea pagar el cupón de pago?");
-        console.log(event.currentTarget.name);
-        if (respuesta) {
-            Meteor.call('cuponesPagos.update', event.currentTarget.name);
-        }
-    },
+
 });
 
 //Funcion para formatear las dates al formato requerido, se usa un helper
@@ -113,5 +167,15 @@ Template.altaContrato.helpers({
             return { label: garante.apellido + " " + garante.nombre, value: garante.cuit };
         });
         return garante;
+    },
+    tipoDeMoraF: function(){
+        var t = AutoForm.getFieldValue('tipoDeMora', 'altaContrato');
+        if (t) {
+            console.log("Selecciono porcentaje");
+            return false;
+        } else {
+            console.log("Selecciono valor porcentaje");
+            return true;
+        }
     }
 });

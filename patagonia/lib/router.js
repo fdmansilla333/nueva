@@ -132,7 +132,8 @@ Router.route('/contratos/:_id', function () {
     
     var propietario1 = Personas.findOne({ cuit: inmueble1.propietario });
 
-    var cuponesPagos = CuponesPagos.find({contrato:contratos._id});
+    var cuponesPagos = CuponesPagos.find({contrato:contratos._id},{sort:{periodo:1}});
+    
     cuponesPagos = cuponesPagos.map(function(cupon){
       return cupon;
     });

@@ -120,10 +120,56 @@ Contratos.attachSchema(new SimpleSchema({
         optional: true,
         autoform: {
             placeholder: "Calculado",
-            type: "hidden",
             step: 0.001,
         }
 
+    },
+    multaSellado: {
+        type: Number,
+        label: "Multa de sellado",
+        optional: true,
+        autoform: {
+            placeholder: "Ingresar multa del sellado",
+            step: 0.001,
+        }
+    },
+    depositoGarantia: {
+        type: Number,
+        label: "Depósito en garantía",
+        optional: true,
+        autoform: {
+            placeholder: "Ingresar el depósito que proporciona el inquilino",
+            step: 0.001,
+        }
+    },
+    tipoDeMora: {
+        type: Boolean,
+        label: 'Seleccione el tipo de mora',
+        optional: true,
+        autoform: {
+            type: 'boolean-radios',
+            trueLabel: 'Valor fijo',
+            falseLabel: 'Porcentaje',
+            value: false
+        }
+    },
+    moraPorcentaje: {
+        type: Number,
+        label: "Porcentaje de la mora diario",
+        optional: true,
+        autoform: {
+            placeholder: "Ingresar el porcentaje de la mora",
+            step: 0.001,
+        }
+    },
+    moraFijo: {
+        type: Number,
+        label: "Valor fijo de la mora diario",
+        optional: true,
+        autoform: {
+            placeholder: "Ingresar el valor fijo diario",
+            step: 0.001,
+        }
     },
     contratoTotal: {
         type: Number,
@@ -145,17 +191,17 @@ function generarCuponesDePagos(contrato, id) {
     console.log("Generando cupones de pago");
     console.log(contrato);
     var esPrimero = true;
-    fechaVencimientoCuota=[];
+    fechaVencimientoCuota = [];
     for (i = 1; i <= contrato.duracionMeses; i++) {
-        importeCuota=0;
-        
-        if (esPrimero){
-            importeCuota = parseFloat(contrato.comisionInmobiliaria) + parseFloat(contrato.sellado)/2 + parseFloat(contrato.costoAlquiler);
+        importeCuota = 0;
+
+        if (esPrimero) {
+            importeCuota = parseFloat(contrato.comisionInmobiliaria) / 2 + parseFloat(contrato.sellado) / 2 + parseFloat(contrato.costoAlquiler);
             esPrimero = false;
             fechaVencimientoCuota = moment(contrato.inicioContrato).add(10, 'days').toDate();
 
 
-        }else{
+        } else {
             importeCuota = parseFloat(contrato.costoAlquiler);
             fechaVencimientoCuota = moment(fechaVencimientoCuota).add(1, 'months').toDate();
         }
@@ -166,7 +212,7 @@ function generarCuponesDePagos(contrato, id) {
             importe: importeCuota,
             fechaVencimiento: fechaVencimientoCuota,
             pagado: false,
-            
+
 
         }
 
@@ -177,12 +223,23 @@ function generarCuponesDePagos(contrato, id) {
 
 
 }
+function agregarGarantia(idPersona, garantia) {
+    persona = Personas.findOne({ cuit: idPersona });
+    if (persona) {
+        console.log("Garantía agregada");
 
+        Personas.remove(persona._id);
+        persona.saldo = garantia;
+
+        Personas.insert(persona);
+        console.log(persona);
+    }
+}
 Meteor.methods({
     'contratos.remove'(contratoId) {
         check(contratoId, String);
         Contratos.remove(contratoId);
-        CuponesPagos.remove({contrato:contratoId});
+        CuponesPagos.remove({ contrato: contratoId });
     },
     'contratos.insert'(contrato) {
         /*Tiene que existir un contrato, con la misma propiedad y en la misma fecha de vigencia.
@@ -232,11 +289,14 @@ Meteor.methods({
 
         contrato.contratoTotal = contratoTotal;
         contrato.duracionMeses = ((anioFin - anioInicio) * 12 + (mesFin - mesInicio));
-        idContrato=Contratos.insert(contrato);
+        idContrato = Contratos.insert(contrato);
         generarCuponesDePagos(contrato, idContrato);
-   
+        if (contrato.depositoGarantia) {
+            agregarGarantia(contrato.inquilino, contrato.depositoGarantia);
+        }
 
-        
+
+
     }
 
 });

@@ -192,7 +192,7 @@ Personas.attachSchema(new SimpleSchema({
         }
 
     },
-    caja: {
+    saldo: {
         type: Number,
         optional: true,
         autoform: {

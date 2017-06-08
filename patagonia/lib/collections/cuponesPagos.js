@@ -34,15 +34,15 @@ CuponesPagos.attachSchema(new SimpleSchema({
         type: Number,
         label: "Importe adeudado"
     },
-    fechaVencimiento:{
+    fechaVencimiento: {
         type: Date,
-        label:"Fecha de vencimiento"
+        label: "Fecha de vencimiento"
     },
     fechaPago: {
         type: Date,
         optional: true,
         label: "Fecha de pago",
- 
+
     },
     pagado: {
         type: Boolean,
@@ -54,15 +54,20 @@ CuponesPagos.attachSchema(new SimpleSchema({
 
 
 Meteor.methods({
-    'cuponesPago.remove'(cuponId) {
+    'cuponesPagos.remove'(cuponId) {
         check(cuponId, String);
         CuponesPagos.remove(cuponId);
     },
-    'cuponesPago.insert'(cupon) {
+    'cuponesPagos.insert'(cupon) {
         console.log("Insertando cupon");
         CuponesPagos.insert(cupon);
     },
-    'cuponesPagos.update'(id){
-        console.log(id);
+    'cuponesPagos.update'(idCupon, importe) {
+        CuponesPagos.update({ _id: idCupon }, {
+            set: {
+                fechaPago: new Date, pagado: true, importe: importe
+            }
+        });
+
     }
 });
