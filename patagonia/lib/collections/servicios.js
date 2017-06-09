@@ -14,9 +14,9 @@ Servicios.attachSchema(new SimpleSchema({
             firstOption: "Seleccione un codigo de un inmueble",
             options: function () {
                 var im = Inmuebles.find().map(function (im) {
-                       var p=Personas.findOne({cuit:im.propietario});
-                       
-                    return {"label":im._id+" a nombre de "+p.nombre+" "+p.apellido+" Dirección: "+im.calle+" "+im.nro, "value":im._id};
+                    var p = Personas.findOne({ cuit: im.propietario });
+
+                    return { "label": im._id + " a nombre de " + p.nombre + " " + p.apellido + " Dirección: " + im.calle + " " + im.nro, "value": im._id };
                 });
 
                 return im;
@@ -24,16 +24,16 @@ Servicios.attachSchema(new SimpleSchema({
 
         }
     },
-   
-    descripcionServicio:{
-        type:String,
+
+    descripcionServicio: {
+        type: String,
         label: 'Nombre o descripción del servicio',
-        autoform:{
+        autoform: {
             placeholder: "Ingrese nombre o descripción del servicio"
         }
 
     },
-    tarifaServicio:{
+    tarifaServicio: {
         type: Number,
         label: "Tarifa del servicio",
         min: 0,
@@ -42,8 +42,8 @@ Servicios.attachSchema(new SimpleSchema({
             placeholder: "Ingrese la tarifa",
             step: 0.001,
         }
-    },
-    
+    }
+
 
 
 
@@ -53,8 +53,8 @@ Servicios.attachSchema(new SimpleSchema({
 Meteor.methods({
     'servicios.remove'(id) {
         check(id, String);
-        Servicios.remove({_id:id});
-       
+        Servicios.remove({ _id: id });
+
     }
 }
 );

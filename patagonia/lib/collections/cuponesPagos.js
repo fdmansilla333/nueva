@@ -48,6 +48,16 @@ CuponesPagos.attachSchema(new SimpleSchema({
         type: Boolean,
         label: "¿Fue abonado?",
     },
+    servicios: {
+        type: Array,
+        label: "Servicios en el período",
+        optional:true,
+    },
+    reparaciones: {
+        type: Array,
+        label: "Reparaciones en el período",
+        optional: true,
+    }
 
 
 }, { tracker: Tracker }));

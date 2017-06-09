@@ -73,6 +73,7 @@ La comision administrativa va al propietario ok!
 
 
 Agregar corrimiento de días, para vencimiento de periodos, y habilitarlo el cambio en futuro sin cambiar valores confirmados
+ok!
 
 La inmobiliaria inquilino y propietario
 Multa del sellado, y sellado miti y miti
@@ -80,31 +81,37 @@ Contratos obligatorios: periodos, partes intervinientes, monto,
 Deposito en garantía, si/no, monto, impacta en el saldo del inquilino a favor.
 Agregar campo garante. (Tiene persona)
 
+ok!
+
+
+
+
+#Caja --> pasa a ser saldo ok!
+
+#Generacion de recibos
+Generacion de pago, existen pagos parciales. Calculo de la mora apartir de 10 días de corrimiento del vencimiento mensual.  La mora puede ser un porcentaje del valor mensual o fijo por dia. ok!
+
+
+Las reparaciones pueden ir a cargo de la inmobiliaria, o a cargo del propietario. Si van a cargo del propietario tiene que aparecer en el recibo. Si va en la inmobiliaria deben registrarse como un movimiento. Producto, cantidad y valor, descripción o concepto
+ok!
+
+Las reparaciones tienen que tener un tilde, para pagar en efectivo.
+Al pagar un recibo, tiene que aparecer un campo de servicios. 
+ok!
+
+ 
+
+Condición ante el iva: monotributista, resposable inscripto, exento, no inscripto, 
+ok
+
+TODO falta agregar las tarifas de los servicios, y que repercutan en los recibos ok
+
+
+Notas de debito, para los servicios.
+
 
 Baja de contrato. baja anticipada de contrato
 Manejo de contratos, cuando se tiene un venta/alquiler en el inmueble, si se vende, tiene que cancelarse el contrato, con la entrega de la llave. Resicisión anticipada del contrato.
 
-
-#Caja --> pasa a ser saldo
-
-#Generacion de recibos
-Generacion de pago, existen pagos parciales. Calculo de la mora apartir de 10 días de corrimiento del vencimiento mensual.  La mora puede ser un porcentaje del valor mensual o fijo por dia. 
 Las liquidaciones del propietario son opcionales/eventuales
 Agregar notas de credito a personas 
-
-
-Las reparaciones pueden ir a cargo de la inmobiliaria, o a cargo del propietario. Si van a cargo del propietario tiene que aparecer en el recibo. Si va en la inmobiliaria deben registrarse como un movimiento. Producto, cantidad y valor, descripción o concepto
-
-
-Las reparaciones tienen que tener un tilde, para pagar en efectivo.
-Al pagar un recibo, tiene que aparecer un campo de servicios. 
-
-Notas de debito, para los servicios. 
-
-Condición ante el iva: monotributista, resposable inscripto, exento, no inscripto, 
-
-TODO falta agregar las tarifas de los servicios, y que repercutan en los recibos
-
-
-No diseñar PDF, *Investigar Word
-

@@ -131,20 +131,18 @@ Personas.attachSchema(new SimpleSchema({
         type: String,
         optional: true,
         label: "Condición ante el IVA",
-
-        /*autoform: {
-            afFieldInput: {
-                firstOption: "(Seleccionar condición ante el IVA)"
-            },
-            option: function(){
+         autoform: {
+            type: 'select',
+            firstOption: "Seleccione la condición ante el IVA",
+            options: function () {
                 return [
-                    {label:"Responsable Inscripto"},
-                    {label: "Monostributista"},
-                    {label: "Autonomo"}
+                    { label: "Monotributista", value: "Monotributista" },
+                    { label: "Responsable Inscripto", value: "Responsable Inscripto" },
+                    { label: "Exento", value: "Exento" },
+                    { label: "No Inscripto", value: "No Inscripto" },
                 ]
             }
         }
-        */
     },
     calle: {
         type: String,
@@ -178,6 +176,7 @@ Personas.attachSchema(new SimpleSchema({
     tipoCliente: {
         type: String,
         label: "*Tipo de cliente",
+        optional: true,
         autoform: {
             type: 'select',
             firstOption: "(Seleccionar tipo de cliente)",

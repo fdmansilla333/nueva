@@ -5,6 +5,9 @@ import { check } from 'meteor/check';
 import { Meteor } from 'meteor/meteor';
 import { EasySearch } from 'meteor/easy:search';
 import { moment } from 'meteor/momentjs:moment';
+import { agregarSaldo } from '../utilidades.js';
+import { quitarSaldo } from '../utilidades.js';
+
 
 
 
@@ -218,23 +221,14 @@ function generarCuponesDePagos(contrato, id) {
 
         console.log(cupon);
         CuponesPagos.insert(cupon);
+        quitarSaldo(contrato.inquilino, cupon.importe);
+        
     }
     console.log("Finalizado la generaciones de cupones");
 
 
 }
-function agregarGarantia(idPersona, garantia) {
-    persona = Personas.findOne({ cuit: idPersona });
-    if (persona) {
-        console.log("Garantía agregada");
 
-        Personas.remove(persona._id);
-        persona.saldo = garantia;
-
-        Personas.insert(persona);
-        console.log(persona);
-    }
-}
 Meteor.methods({
     'contratos.remove'(contratoId) {
         check(contratoId, String);
@@ -292,7 +286,7 @@ Meteor.methods({
         idContrato = Contratos.insert(contrato);
         generarCuponesDePagos(contrato, idContrato);
         if (contrato.depositoGarantia) {
-            agregarGarantia(contrato.inquilino, contrato.depositoGarantia);
+            agregarSaldo(contrato.inquilino, contrato.depositoGarantia);
         }
 
 

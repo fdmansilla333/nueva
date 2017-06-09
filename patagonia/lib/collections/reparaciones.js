@@ -49,7 +49,12 @@ Reparaciones.attachSchema(new SimpleSchema({
             placeholder: "Fecha de reparación dd/mm/aaaa",
             type: 'date'
         }
-    }
+    },
+     pagado: {
+        type: Boolean,
+        label: "¿Fue abonado?",
+        optional: true
+    },
     
 
 

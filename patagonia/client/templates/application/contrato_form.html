@@ -214,13 +214,13 @@
                 <tr>
 
                     <td>{{cupon.periodo}}</td>
-                    <td>{{cupon.importe}}</td>
+                    <td>${{cupon.importe}}</td>
                     <td>{{formatDate cupon.fechaVencimiento}}</td>
                     
                     {{#if cupon.pagado}}
                         <td>{{formatDate cupon.fechaPago}}</td>
                          <span class="right">
-                            <button type="button" class="btn btn-info pagado">Pagado</button>
+                            <button type="button" class="btn btn-info pagado" name={{cupon._id}}>ver Recibo</button>
                         </span>
                        
                     {{else}}
@@ -234,6 +234,20 @@
 
                     
                 </tr>
+                {{#each servicio in cupon.servicios}}
+               
+                <tr>
+                    <td>{{servicio.descripcionServicio}}</td>
+                    <td>${{servicio.tarifaServicio}} pesos</td>
+                </tr>
+                {{/each}}
+                {{#each reparacion in cupon.reparaciones}}
+                
+                <tr>
+                    <td>{{reparacion.descripcionReparacion}}</td>
+                    <td>${{reparacion.importeReparacion}} pesos</td>
+                </tr>
+                {{/each}}
                 <hr>
             {{/each}}
                  </table>

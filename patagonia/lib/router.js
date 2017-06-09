@@ -2,6 +2,8 @@ import { contratos, ContratosIndex } from '../lib/collections/Contratos';
 import { personas, PersonasIndex } from '../lib/collections/Personas';
 import { personasJuridicas, PersonasJuridicasIndex } from '../lib/collections/personasJuridicas';
 import { inmuebles, InmueblesIndex } from '../lib/collections/inmuebles';
+import { buscarServicios } from '../lib/utilidades.js';
+import { buscarReparaciones } from '../lib/utilidades.js';
 
 
 Router.route('/', function () {
@@ -134,9 +136,19 @@ Router.route('/contratos/:_id', function () {
 
     var cuponesPagos = CuponesPagos.find({contrato:contratos._id},{sort:{periodo:1}});
     
+    
     cuponesPagos = cuponesPagos.map(function(cupon){
       return cupon;
     });
+
+    cuponesPagos.forEach(function(cupon) {
+      
+      cupon.servicios = buscarServicios(cupon.contrato);
+    }, this);
+
+    cuponesPagos.forEach(function(cupon){
+      cupon.reparaciones = buscarReparaciones(cupon.contrato, cupon.fechaVencimiento);
+    }, this);
     
     contratos.datosPropietario = propietario1;
     contratos.datosInquilino = inquilino1;
