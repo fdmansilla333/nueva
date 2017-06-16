@@ -281,8 +281,8 @@ Router.route('/inmuebles/:_id', function () {
   if (reparacionesEncontradoas){
     inmuebles.reparaciones=[];
     listReparaciones = reparacionesEncontradoas.map(function(rep){
-       var fecha = rep.fechaReparacion.getDay() + "/" + String(rep.fechaReparacion.getMonth() + 1) + "/" + rep.fechaReparacion.getFullYear();
-      return {"_id":rep._id, "codigo":rep.codigo, "descripcionReparacion":rep.descripcionReparacion, "fechaReparacion":fecha, "importeReparacion":rep.importeReparacion};
+       var fecha = rep.fechaPago.getDay() + "/" + String(rep.fechaPago.getMonth() + 1) + "/" + rep.fechaPago.getFullYear();
+      return {"_id":rep._id, "codigo":rep.codigo, "descripcionReparacion":rep.descripcionReparacion, "fecha de pago":fecha, "importeReparacion":rep.importeReparacion};
     });
     inmuebles.reparaciones = listReparaciones;
   }
@@ -396,4 +396,6 @@ Router.route('/agregarReparacion', function(){
   this.render('agregarReparacion');
 });
 
-
+Router.route('/prueba', function(){
+  this.render('prueba');
+});

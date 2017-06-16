@@ -9,7 +9,13 @@ import { agregarSaldo } from '../utilidades.js';
 import { quitarSaldo } from '../utilidades.js';
 
 
-
+SimpleSchema.setDefaultMessages({
+  messages: {
+    en: {
+      "too_long": "Too long!",
+    },
+  },
+});
 
 
 Contratos = new Mongo.Collection("contratos");
@@ -47,7 +53,35 @@ Contratos.attachSchema(new SimpleSchema({
     },
     costoAlquiler: {
         type: Number,
-        label: "Costo del alquiler mensual",
+        label: "Costo del alquiler mensual en el primer período",
+        min: 0,
+        autoform: {
+            placeholder: "Ingrese el alquiler. Ej 4950.95",
+            step: 0.01,
+
+        }
+    },
+    costoAlquiler2: {
+        type: Number,
+        label: "Costo del alquiler mensual en el segundo período",
+        min: 0,
+        autoform: {
+            placeholder: "Ingrese el alquiler. Ej 4950.95",
+            step: 0.01,
+        }
+    },
+    costoAlquiler3: {
+        type: Number,
+        label: "Costo del alquiler mensual en el tercer período",
+        min: 0,
+        autoform: {
+            placeholder: "Ingrese el alquiler. Ej 4950.95",
+            step: 0.01,
+        }
+    },
+    costoAlquiler4: {
+        type: Number,
+        label: "Costo del alquiler mensual en el cuarto período",
         min: 0,
         autoform: {
             placeholder: "Ingrese el alquiler. Ej 4950.95",
@@ -56,7 +90,7 @@ Contratos.attachSchema(new SimpleSchema({
     },
     inicioContrato: {
         type: Date,
-        label: "Inicio del contrato",
+        label: "Inicio del primer período",
         autoform: {
             type: 'date',
             placeholder: 'Ingrese la fecha del comienzo del período'
@@ -64,10 +98,69 @@ Contratos.attachSchema(new SimpleSchema({
     },
     finContrato: {
         type: Date,
-        label: "Fin de contrato",
+        label: "Fin del primer período",
+        custom: function () {
+            console.log('custom validation ran');
+             console.log(this);
+            if (this.field('inicioContrato').value > this.field('finContrato').value) {
+                return SimpleSchema.ErrorTypes.too_long;
+            }
+        },
         autoform: {
             type: 'date',
-            placeholder: 'Ingrese la fecha del fin del período'
+            placeholder: 'Ingrese la fecha del fin del período',
+
+        }
+
+    },
+    inicioContrato2: {
+        type: Date,
+        label: "Inicio del segundo período ",
+        autoform: {
+            type: 'date',
+            placeholder: 'Ingrese la fecha del comienzo del período 2'
+        }
+    },
+    finContrato2: {
+        type: Date,
+        label: "Fin del segundo período",
+        autoform: {
+            type: 'date',
+            placeholder: 'Ingrese la fecha del fin del período 2'
+        }
+
+    },
+    inicioContrato3: {
+        type: Date,
+        label: "Inicio del tercer período",
+        autoform: {
+            type: 'date',
+            placeholder: 'Ingrese la fecha del comienzo del período 3'
+        }
+    },
+    finContrato3: {
+        type: Date,
+        label: "Fin del tercer período",
+        autoform: {
+            type: 'date',
+            placeholder: 'Ingrese la fecha del fin del período 3'
+        }
+
+    },
+    inicioContrato4: {
+        type: Date,
+        label: "Inicio del cuarto período",
+        autoform: {
+            type: 'date',
+            placeholder: 'Ingrese la fecha del comienzo del período 4'
+        }
+    },
+    finContrato4: {
+        type: Date,
+        label: "Fin del cuarto período",
+        autoform: {
+            type: 'date',
+            placeholder: 'Ingrese la fecha del fin del período 4'
         }
 
     },
@@ -222,7 +315,7 @@ function generarCuponesDePagos(contrato, id) {
         console.log(cupon);
         CuponesPagos.insert(cupon);
         quitarSaldo(contrato.inquilino, cupon.importe);
-        
+
     }
     console.log("Finalizado la generaciones de cupones");
 
@@ -246,6 +339,7 @@ Meteor.methods({
         //si encuentro una propiedad que tenga contrato que comience dentro del intervalo
         if (contrato.inicioContrato >= contrato.finContrato) {
             throw new Meteor.Error("Contrato", "La fecha de inicio no puede ser superior a la fecha de fin de contrato");
+
         }
         c1 = Contratos.findOne({ "propiedad": contrato.propiedad, $and: [{ "inicioContrato": { $lte: contrato.inicioContrato } }, { "finContrato": { $gte: contrato.inicioContrato } }] });
         c2 = Contratos.findOne({ "propiedad": contrato.propiedad, $and: [{ "finContrato": { $lte: contrato.finContrato } }, { "finContrato": { $gte: contrato.finContrato } }] });

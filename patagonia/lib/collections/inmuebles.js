@@ -135,7 +135,7 @@ Inmuebles.attachSchema(new SimpleSchema({
     },
     tipoDeBien: {
         type: String,
-        label: "Tipo de bien inmueble",
+        label: "*Tipo de bien inmueble",
         autoform: {
             firstOption: "Seleccionar tipo del bien inmueble",
             options: function () {
@@ -150,6 +150,14 @@ Inmuebles.attachSchema(new SimpleSchema({
                     { label: "Estancia", value: "Estancia" },
                 ]
             }
+        }
+    },
+    barrio:{
+        type: String,
+        label: "Nombre del barrio",
+        optional: true,
+        autoform:{
+            placeholder:"Ingrese el nombre del barrio al que pertenece el inmueble"
         }
     },
     datosDepto: {

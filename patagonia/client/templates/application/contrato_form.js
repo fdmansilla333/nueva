@@ -18,16 +18,20 @@ Template.altaContrato.onCreated(function () {
             Router.go('contratos');
         },
         before: {
-            insert: function (document) {
+          /*  insert: function (document) {
                 Meteor.call('contratos.insert', document, function (error) {
+
                     if (error) {
                         //TODO ver de que forma mostrar mejor los errores, en vez de utilizar alert
                         alert(error);
+                       new Error("Error failed");
+                    }else{
+                         Router.go('contratos');
                     }
                 });
 
-                Router.go('contratos');
-            }
+               
+            }*/
         },
         onSubmit: function (insertDoc, updateDoc, currentDoc) { console.log("Onsubmit") },
 
@@ -74,7 +78,7 @@ function buscarReparaciones(idContrato, fechaVigencia) {
                 return r;
             });
             reparaciones = reparaciones.filter(function (r) {
-                if (r.fechaReparacion <= fechaVigencia) {
+                if (r.fechaPago <= fechaVigencia) {
                     return true;
                 } else {
                     return false;
@@ -164,12 +168,18 @@ Template.contratosDetalle.events({
         cupon = CuponesPagos.findOne({ _id: event.currentTarget.name });
         if (cupon) {
             var doc = new PDFDocument({ size: 'A4', margin: 50 });
-         
+            
+            doc.fontSize(12);
+            doc.text('Nueva Patagonia B&S de Jorge Davies', { align: 'right', width: 500 }).stroke();
+            doc.text('Gregorio Mayo 272-9103-Rawson Chubut', { align: 'right', width: 500 }).stroke();
+            doc.text('| (0280)4486468/154412205 |', { align: 'right', width: 500 }).stroke();
+            doc.text('nuevapatagoniabs@gmail.com', { align: 'right', width: 500 }).stroke();
+
             doc.fontSize(14);
             doc.text('Comprobante definitivo de pago:' + String(cupon._id), { align: 'center', width: 500 }).moveDown(1);
 
             doc.fontSize(12);
-
+            
             doc.text('Código del contrato:' + String(cupon.contrato), { align: 'left', width: 500 }).moveDown(1);
             doc.text('Nro de cuota o período abonado:' + String(cupon.periodo), { align: 'left', width: 500 }).moveDown(1);
             var numeroaletras = NumeroALetras(cupon.importe);
@@ -184,7 +194,7 @@ Template.contratosDetalle.events({
             doc.rect(doc.x, 75, 500, doc.y).stroke();
 
             doc.write(String(cupon._id) + '.pdf');
-            // it will download the doc
+           
 
         }
 

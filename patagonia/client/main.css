@@ -1,1 +1,10 @@
 /* CSS declarations go here */
+.campos {
+   margin-right: 15px;
+   margin-left: 15px;
+}
+.chico{
+    width: 15%;
+    margin-right: 15px;
+    margin-left: 15px;
+}

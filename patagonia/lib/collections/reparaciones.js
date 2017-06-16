@@ -42,9 +42,9 @@ Reparaciones.attachSchema(new SimpleSchema({
             step: 0.001,
         }
     },
-    fechaReparacion:{
+    fechaPago:{
         type: Date,
-        label: "Ingrese la fecha de reparación",
+        label: "Ingrese la fecha de pago",
         autoform:{
             placeholder: "Fecha de reparación dd/mm/aaaa",
             type: 'date'

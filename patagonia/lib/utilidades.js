@@ -23,7 +23,7 @@ export function buscarReparaciones(idContrato, fechaVigencia) {
                 return r;
             });
             reparaciones = reparaciones.filter(function (r) {
-                if (r.fechaReparacion <= fechaVigencia && !r.pagado) {
+                if (r.fechaPago <= fechaVigencia && !r.pagado) {
                     return true;
                 } else {
                     return false;

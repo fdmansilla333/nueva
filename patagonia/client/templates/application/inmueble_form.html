@@ -95,7 +95,7 @@
                 <h3 class="panel-title">Domicilio</h3>
             </div>
             <div class="panel-body">
-                {{> afQuickField name='calle'}} {{> afQuickField name='nro'}}
+                {{> afQuickField name='calle'}} {{> afQuickField name='nro'}} {{> afQuickField name='barrio'}}
 
             </div>
         </div>
@@ -140,7 +140,7 @@
                     <h4>{{pais}} - {{provincia}} - {{localidad}} </h4>
                 </div>
                 <div class="row">
-                    <h4> Dirección: {{calle}} {{nro}} </h4>
+                    <h4> Dirección: {{calle}} {{nro}} {{barrio}}</h4>
                 </div>
                 <div class="row">
                     <h4> Tipo de bien: {{tipoDeBien}} </h4>
@@ -245,7 +245,7 @@
             <li align="center" class="list-group-item">
                 Descripción: <b>{{r.descripcionReparacion}} </b>
                 Importe:<b>${{r.importeReparacion}} </b> 
-                Fecha:<b>{{r.fechaReparacion}} </b>
+                Fecha:<b>{{r.fechaPago}} </b>
                 <button type="button" class="btn btn-danger removeReparacion" name={{r._id}}>Eliminar servicio</button>
             </li>
 
@@ -319,7 +319,7 @@
             </div>
             <div class="panel-body">
                 {{> afQuickField name="codigo"}} {{> afQuickField name="descripcionReparacion"}} {{> afQuickField name= "importeReparacion"}}
-                {{> afQuickField name="fechaReparacion"}}
+                {{> afQuickField name="fechaPago"}}
             </div>
         </div>
 
