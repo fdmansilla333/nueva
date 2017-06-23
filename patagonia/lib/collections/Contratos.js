@@ -103,7 +103,7 @@ Contratos.attachSchema(new SimpleSchema({
             console.log('custom validation ran');
              console.log(this);
             if (this.field('inicioContrato').value > this.field('finContrato').value) {
-                return SimpleSchema.ErrorTypes.too_long;
+                return "Fecha de fin debe ser mayor a fecha de inicio";
             }
         },
         autoform: {
