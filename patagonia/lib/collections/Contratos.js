@@ -12,11 +12,11 @@ import { quitarSaldo } from '../utilidades.js';
 SimpleSchema.setDefaultMessages({
   messages: {
     en: {
-      "too_long": "Too long!",
+      "fechaFin": "Tiene que ser una fecha posterior a la de inicio del período anterior",
+      "fechaInicio": "Tiene que comenzar un día después de la finalización del período anterior",
     },
   },
 });
-
 
 Contratos = new Mongo.Collection("contratos");
 Contratos.attachSchema(new SimpleSchema({
@@ -100,10 +100,11 @@ Contratos.attachSchema(new SimpleSchema({
         type: Date,
         label: "Fin del primer período",
         custom: function () {
-            console.log('custom validation ran');
-             console.log(this);
+            //verificando que la fecha de inicio del contrato sea mayor a la fecha de inicio
             if (this.field('inicioContrato').value > this.field('finContrato').value) {
-                return "Fecha de fin debe ser mayor a fecha de inicio";
+                return "fechaFin";
+            }else{
+                //si no hubo error establezco el minimo del otro inicioContrato2
             }
         },
         autoform: {
@@ -116,6 +117,18 @@ Contratos.attachSchema(new SimpleSchema({
     inicioContrato2: {
         type: Date,
         label: "Inicio del segundo período ",
+        custom:function(){
+            finContrato=this.field('finContrato').value;
+            inicioContrato2=this.field('inicioContrato2').value;      
+            //agregar que el inicio y fin del contrato que arranquen con un dia de diferencia 
+            inicio = moment(finContrato);
+            fin = moment(inicioContrato2);
+            comparador = moment(inicio).add(1,'days');
+            //Debe comenzar la fecha de fin con un día mas
+            if (!(comparador.isSame(fin))){
+                return "fechaInicio";
+            }
+        },
         autoform: {
             type: 'date',
             placeholder: 'Ingrese la fecha del comienzo del período 2'
@@ -124,6 +137,14 @@ Contratos.attachSchema(new SimpleSchema({
     finContrato2: {
         type: Date,
         label: "Fin del segundo período",
+        custom: function () {
+            //verificando que la fecha de inicio del contrato sea mayor a la fecha de inicio
+            if (this.field('inicioContrato2').value > this.field('finContrato2').value) {
+                return "fechaFin";
+            }else{
+                //si no hubo error establezco el minimo del otro inicioContrato2
+            }
+        },
         autoform: {
             type: 'date',
             placeholder: 'Ingrese la fecha del fin del período 2'
@@ -133,6 +154,18 @@ Contratos.attachSchema(new SimpleSchema({
     inicioContrato3: {
         type: Date,
         label: "Inicio del tercer período",
+        custom:function(){
+            finContrato=this.field('finContrato2').value;
+            inicioContrato3=this.field('inicioContrato3').value;      
+            //agregar que el inicio y fin del contrato que arranquen con un dia de diferencia 
+            inicio = moment(finContrato);
+            fin = moment(inicioContrato3);
+            comparador = moment(inicio).add(1,'days');
+            //Debe comenzar la fecha de fin con un día mas
+            if (!(comparador.isSame(fin))){
+                return "fechaInicio";
+            }
+        },
         autoform: {
             type: 'date',
             placeholder: 'Ingrese la fecha del comienzo del período 3'
@@ -141,6 +174,14 @@ Contratos.attachSchema(new SimpleSchema({
     finContrato3: {
         type: Date,
         label: "Fin del tercer período",
+        custom: function () {
+            //verificando que la fecha de inicio del contrato sea mayor a la fecha de inicio
+            if (this.field('inicioContrato3').value > this.field('finContrato3').value) {
+                return "fechaFin";
+            }else{
+                //si no hubo error establezco el minimo del otro inicioContrato2
+            }
+        },
         autoform: {
             type: 'date',
             placeholder: 'Ingrese la fecha del fin del período 3'
@@ -150,6 +191,18 @@ Contratos.attachSchema(new SimpleSchema({
     inicioContrato4: {
         type: Date,
         label: "Inicio del cuarto período",
+        custom:function(){
+            finContrato=this.field('finContrato3').value;
+            inicioContrato3=this.field('inicioContrato4').value;      
+            //agregar que el inicio y fin del contrato que arranquen con un dia de diferencia 
+            inicio = moment(finContrato);
+            fin = moment(inicioContrato3);
+            comparador = moment(inicio).add(1,'days');
+            //Debe comenzar la fecha de fin con un día mas
+            if (!(comparador.isSame(fin))){
+                return "fechaInicio";
+            }
+        },
         autoform: {
             type: 'date',
             placeholder: 'Ingrese la fecha del comienzo del período 4'
@@ -158,6 +211,14 @@ Contratos.attachSchema(new SimpleSchema({
     finContrato4: {
         type: Date,
         label: "Fin del cuarto período",
+         custom: function () {
+            //verificando que la fecha de inicio del contrato sea mayor a la fecha de inicio
+            if (this.field('inicioContrato4').value > this.field('finContrato4').value) {
+                return "fechaFin";
+            }else{
+                //si no hubo error establezco el minimo del otro inicioContrato2
+            }
+        },
         autoform: {
             type: 'date',
             placeholder: 'Ingrese la fecha del fin del período 4'
