@@ -10,12 +10,12 @@ import { quitarSaldo } from '../utilidades.js';
 
 
 SimpleSchema.setDefaultMessages({
-  messages: {
-    en: {
-      "fechaFin": "Tiene que ser una fecha posterior a la de inicio del período anterior",
-      "fechaInicio": "Tiene que comenzar un día después de la finalización del período anterior",
+    messages: {
+        en: {
+            "fechaFin": "Tiene que ser una fecha posterior a la de inicio del período anterior",
+            "fechaInicio": "Tiene que comenzar un día después de la finalización del período anterior",
+        },
     },
-  },
 });
 
 Contratos = new Mongo.Collection("contratos");
@@ -103,7 +103,7 @@ Contratos.attachSchema(new SimpleSchema({
             //verificando que la fecha de inicio del contrato sea mayor a la fecha de inicio
             if (this.field('inicioContrato').value > this.field('finContrato').value) {
                 return "fechaFin";
-            }else{
+            } else {
                 //si no hubo error establezco el minimo del otro inicioContrato2
             }
         },
@@ -117,15 +117,15 @@ Contratos.attachSchema(new SimpleSchema({
     inicioContrato2: {
         type: Date,
         label: "Inicio del segundo período ",
-        custom:function(){
-            finContrato=this.field('finContrato').value;
-            inicioContrato2=this.field('inicioContrato2').value;      
+        custom: function () {
+            finContrato = this.field('finContrato').value;
+            inicioContrato2 = this.field('inicioContrato2').value;
             //agregar que el inicio y fin del contrato que arranquen con un dia de diferencia 
             inicio = moment(finContrato);
             fin = moment(inicioContrato2);
-            comparador = moment(inicio).add(1,'days');
+            comparador = moment(inicio).add(1, 'days');
             //Debe comenzar la fecha de fin con un día mas
-            if (!(comparador.isSame(fin))){
+            if (!(comparador.isSame(fin))) {
                 return "fechaInicio";
             }
         },
@@ -141,7 +141,7 @@ Contratos.attachSchema(new SimpleSchema({
             //verificando que la fecha de inicio del contrato sea mayor a la fecha de inicio
             if (this.field('inicioContrato2').value > this.field('finContrato2').value) {
                 return "fechaFin";
-            }else{
+            } else {
                 //si no hubo error establezco el minimo del otro inicioContrato2
             }
         },
@@ -154,15 +154,15 @@ Contratos.attachSchema(new SimpleSchema({
     inicioContrato3: {
         type: Date,
         label: "Inicio del tercer período",
-        custom:function(){
-            finContrato=this.field('finContrato2').value;
-            inicioContrato3=this.field('inicioContrato3').value;      
+        custom: function () {
+            finContrato = this.field('finContrato2').value;
+            inicioContrato3 = this.field('inicioContrato3').value;
             //agregar que el inicio y fin del contrato que arranquen con un dia de diferencia 
             inicio = moment(finContrato);
             fin = moment(inicioContrato3);
-            comparador = moment(inicio).add(1,'days');
+            comparador = moment(inicio).add(1, 'days');
             //Debe comenzar la fecha de fin con un día mas
-            if (!(comparador.isSame(fin))){
+            if (!(comparador.isSame(fin))) {
                 return "fechaInicio";
             }
         },
@@ -178,7 +178,7 @@ Contratos.attachSchema(new SimpleSchema({
             //verificando que la fecha de inicio del contrato sea mayor a la fecha de inicio
             if (this.field('inicioContrato3').value > this.field('finContrato3').value) {
                 return "fechaFin";
-            }else{
+            } else {
                 //si no hubo error establezco el minimo del otro inicioContrato2
             }
         },
@@ -191,15 +191,15 @@ Contratos.attachSchema(new SimpleSchema({
     inicioContrato4: {
         type: Date,
         label: "Inicio del cuarto período",
-        custom:function(){
-            finContrato=this.field('finContrato3').value;
-            inicioContrato3=this.field('inicioContrato4').value;      
+        custom: function () {
+            finContrato = this.field('finContrato3').value;
+            inicioContrato3 = this.field('inicioContrato4').value;
             //agregar que el inicio y fin del contrato que arranquen con un dia de diferencia 
             inicio = moment(finContrato);
             fin = moment(inicioContrato3);
-            comparador = moment(inicio).add(1,'days');
+            comparador = moment(inicio).add(1, 'days');
             //Debe comenzar la fecha de fin con un día mas
-            if (!(comparador.isSame(fin))){
+            if (!(comparador.isSame(fin))) {
                 return "fechaInicio";
             }
         },
@@ -211,11 +211,11 @@ Contratos.attachSchema(new SimpleSchema({
     finContrato4: {
         type: Date,
         label: "Fin del cuarto período",
-         custom: function () {
+        custom: function () {
             //verificando que la fecha de inicio del contrato sea mayor a la fecha de inicio
             if (this.field('inicioContrato4').value > this.field('finContrato4').value) {
                 return "fechaFin";
-            }else{
+            } else {
                 //si no hubo error establezco el minimo del otro inicioContrato2
             }
         },
@@ -236,6 +236,7 @@ Contratos.attachSchema(new SimpleSchema({
     comisionAdministrativa: {
         type: Number,
         label: "Comisión administrativa %",
+        min: 0,
         autoform: {
             placeholder: "Ingrese la comisión administrativa. Ej: 12",
             step: 0.001,
@@ -266,6 +267,7 @@ Contratos.attachSchema(new SimpleSchema({
     pagare: {
         type: Number,
         label: "Pagare",
+        min: 0,
         autoform: {
             placeholder: "Ingrese el monto del pagaré. Ej: 1234",
             step: 0.001,
@@ -274,6 +276,7 @@ Contratos.attachSchema(new SimpleSchema({
     impPagare: {
         type: Number,
         label: "Impuesto pagaré",
+        min: 0,
         optional: true,
         autoform: {
             placeholder: "Calculado",
@@ -284,6 +287,7 @@ Contratos.attachSchema(new SimpleSchema({
     multaSellado: {
         type: Number,
         label: "Multa de sellado",
+        min: 0,
         optional: true,
         autoform: {
             placeholder: "Ingresar multa del sellado",
@@ -302,7 +306,6 @@ Contratos.attachSchema(new SimpleSchema({
     tipoDeMora: {
         type: Boolean,
         label: 'Seleccione el tipo de mora',
-        optional: true,
         autoform: {
             type: 'boolean-radios',
             trueLabel: 'Valor fijo',
@@ -343,12 +346,19 @@ Contratos.attachSchema(new SimpleSchema({
 
 }, { tracker: Tracker }));
 
-
+///genera los cupones de pago de todo el contrato
 function generarCuponesDePagos(contrato, id) {
     console.log("Generando cupones de pago");
     console.log(contrato);
     var esPrimero = true;
     fechaVencimientoCuota = [];
+
+    primerPeriodo = obtenerMeses(contrato.inicioContrato, contrato.finContrato);
+    segundoPeriodo = obtenerMeses(contrato.inicioContrato2, contrato.finContrato2)+primerPeriodo;
+    tercerPeriodo = obtenerMeses(contrato.inicioContrato3, contrato.finContrato3)+segundoPeriodo;
+    cuartoPeriodo = obtenerMeses(contrato.inicioContrato4, contrato.finContrato4)+tercerPeriodo;
+
+    var costoAlquiler;
     for (i = 1; i <= contrato.duracionMeses; i++) {
         importeCuota = 0;
 
@@ -359,7 +369,20 @@ function generarCuponesDePagos(contrato, id) {
 
 
         } else {
-            importeCuota = parseFloat(contrato.costoAlquiler);
+            if (i <= primerPeriodo) {
+                importeCuota = parseFloat(contrato.costoAlquiler);
+            } else {
+                if (i > primerPeriodo && i <= segundoPeriodo) {
+                    importeCuota = parseFloat(contrato.costoAlquiler2);
+                } else {
+                    if (i > segundoPeriodo && i <= tercerPeriodo) {
+                        importeCuota = parseFloat(contrato.costoAlquiler3);
+                    } else {
+                        importeCuota = parseFloat(contrato.costoAlquiler4);
+                    }
+                }
+            }
+
             fechaVencimientoCuota = moment(fechaVencimientoCuota).add(1, 'months').toDate();
         }
 
@@ -382,7 +405,92 @@ function generarCuponesDePagos(contrato, id) {
 
 
 }
+///Calcula los meses con el costo del periodo
+function calcularPeriodo(inicio, fin, costoPeriodo) {
+    var anioInicio = inicio.getFullYear();
+    var anioFin = fin.getFullYear();
 
+    var mesInicio = inicio.getMonth() + 1;
+    var mesFin = fin.getMonth() + 1;
+
+    var total = ((anioFin - anioInicio) * 12 + (mesFin - mesInicio)) * parseFloat(costoPeriodo);
+    return total;
+}
+
+//calcula la cantidad de meses entre dos periodos
+function obtenerMeses(inicio, fin) {
+    var anioInicio = inicio.getFullYear();
+    var anioFin = fin.getFullYear();
+
+    var mesInicio = inicio.getMonth() + 1;
+    var mesFin = fin.getMonth() + 1;
+
+    return (((anioFin - anioInicio) * 12 + (mesFin - mesInicio)));
+}
+///Funcion que devuelve la cantidad de meses del contrato
+function cantidadMeses(contrato) {
+
+    var meses1 = obtenerMeses(contrato.inicioContrato, contrato.finContrato);
+    
+
+    var meses2 = obtenerMeses(contrato.inicioContrato2, contrato.finContrato2);
+   
+
+    var meses3 = obtenerMeses(contrato.inicioContrato3, contrato.finContrato3);
+   
+
+    var meses4 = obtenerMeses(contrato.inicioContrato4, contrato.finContrato4);
+   
+    return (meses1 + meses2 + meses3 + meses4);
+
+}
+
+///Verifica la existencia de un contrato unico
+function verificarContrato(contrato) {
+    /*Tiene que existir un contrato, con la misma propiedad y en la misma fecha de vigencia.
+       Esto quiere decir que la fecha de inicio que le paso, no debe ser inferior que la fecha de fin de contrato de algun contrato.
+       $lte menores o iguales que
+       $lt valores menores que
+       $gt valores mayores que
+       $gte  valores mayores e iguales que       */
+
+    //si encuentro una propiedad que tenga contrato que comience dentro del intervalo
+    //Agregar esto a un funcion que valide la existencia unica de un contrato
+    var valido = false;
+
+    c1 = Contratos.findOne({ "propiedad": contrato.propiedad, $and: [{ "inicioContrato": { $gte: contrato.inicioContrato } }, { "finContrato": { $lte: contrato.inicioContrato } }] });
+    c2 = Contratos.findOne({ "propiedad": contrato.propiedad, $and: [{ "finContrato": { $gte: contrato.finContrato } }, { "finContrato": { $lte: contrato.finContrato } }] });
+
+    if (c1) {
+        var fechaBInicioContrato = contrato.inicioContrato.getDay() + "/" + String(contrato.inicioContrato.getMonth() + 1) + "/" + contrato.inicioContrato.getFullYear();
+        var fechasInicioContrato = c1.inicioContrato.getDay() + "/" + String(c1.inicioContrato.getMonth() + 1) + "/" + c1.inicioContrato.getFullYear();
+        var fechasFinContrato = c1.finContrato.getDay() + "/" + String(c1.finContrato.getMonth() + 1) + "/" + c1.finContrato.getFullYear();
+
+        throw new Meteor.Error("Contrato", "Existe un contrato vigente con esa fecha, la fecha de inicio intercepta=" + fechaBInicioContrato
+            + " con el contrato vigente:" + fechasInicioContrato + " a " + fechasFinContrato);
+    }
+    if (c2) {
+        var fechaBFinContrato = contrato.finContrato.getDay() + "/" + String(contrato.finContrato.getMonth() + 1) + "/" + contrato.finContrato.getFullYear();
+        var fechasInicioContrato = c2.inicioContrato.getDay() + "/" + String(c2.inicioContrato.getMonth() + 1) + "/" + c2.inicioContrato.getFullYear();
+        var fechasFinContrato = c2.finContrato.getDay() + "/" + String(c2.finContrato.getMonth() + 1) + "/" + c2.finContrato.getFullYear();
+
+        throw new Meteor.Error("Contrato", "Existe un contrato vigente con esa fecha! la fecha de fin intercepta=" + fechaBFinContrato
+            + " con el contrato vigente:" + fechasInicioContrato + " a " + fechasFinContrato);
+    }
+    if (!(c1 && c2)) { // si no hubo errores
+        valido = true;
+    }
+
+    return valido;
+
+
+}
+/*Definición de constantes
+
+*/
+
+const IMPSELLADO = 0.012 //SIENDO EL 1.2%
+const IMPPAGARE = 0.012 //siendo el 1.2%
 Meteor.methods({
     'contratos.remove'(contratoId) {
         check(contratoId, String);
@@ -390,62 +498,39 @@ Meteor.methods({
         CuponesPagos.remove({ contrato: contratoId });
     },
     'contratos.insert'(contrato) {
-        /*Tiene que existir un contrato, con la misma propiedad y en la misma fecha de vigencia.
-        Esto quiere decir que la fecha de inicio que le paso, no debe ser inferior que la fecha de fin de contrato de algun contrato.
-        $lte menores o iguales que
-        $lt valores menores que
-        $gt valores mayores que
-        $gte  valores mayores e iguales que       */
+        console.log("Insetando contrato");
+        var valido = verificarContrato(contrato);
 
-        //si encuentro una propiedad que tenga contrato que comience dentro del intervalo
-        if (contrato.inicioContrato >= contrato.finContrato) {
-            throw new Meteor.Error("Contrato", "La fecha de inicio no puede ser superior a la fecha de fin de contrato");
+        if (valido) {
+            contratoPeriodo1 = calcularPeriodo(contrato.inicioContrato, contrato.finContrato, contrato.costoAlquiler);
+            contratoPeriodo2 = calcularPeriodo(contrato.inicioContrato2, contrato.finContrato2, contrato.costoAlquiler2);
+            contratoPeriodo3 = calcularPeriodo(contrato.inicioContrato3, contrato.finContrato3, contrato.costoAlquiler3);
+            contratoPeriodo4 = calcularPeriodo(contrato.inicioContrato4, contrato.finContrato4, contrato.costoAlquiler4);
 
+            contratoTotal = contratoPeriodo1 + contratoPeriodo2 + contratoPeriodo3 + contratoPeriodo4;
+            contratoTotal = parseFloat(contrato.comisionInmobiliaria) + parseFloat(contratoTotal);
+
+            //sino se define el sellado se rellena de forma automatica siendo el 1,2%
+            if (!contrato.sellado) {
+                contrato.sellado = (IMPSELLADO * contratoTotal);
+            }
+            //sino se define el impPagare se calcula
+            if (!contrato.impPagare) {
+                contrato.impPagare = contrato.pagare * IMPPAGARE; //Pagaré 1,2 % del monto del pagaré, firma el garante.
+            }
+
+            contrato.contratoTotal = contratoTotal;
+
+            contrato.duracionMeses = cantidadMeses(contrato);
+
+            idContrato = Contratos.insert(contrato);
+            generarCuponesDePagos(contrato, idContrato);
+            /* No se devuelve el deposito, dado que se utiliza en la entrega de llaves
+            if (contrato.depositoGarantia) {
+                agregarSaldo(contrato.inquilino, contrato.depositoGarantia);
+            }
+            */
         }
-        c1 = Contratos.findOne({ "propiedad": contrato.propiedad, $and: [{ "inicioContrato": { $lte: contrato.inicioContrato } }, { "finContrato": { $gte: contrato.inicioContrato } }] });
-        c2 = Contratos.findOne({ "propiedad": contrato.propiedad, $and: [{ "finContrato": { $lte: contrato.finContrato } }, { "finContrato": { $gte: contrato.finContrato } }] });
-        if (c1) {
-            var fechaBInicioContrato = contrato.inicioContrato.getDay() + "/" + String(contrato.inicioContrato.getMonth() + 1) + "/" + contrato.inicioContrato.getFullYear();
-            var fechasInicioContrato = c1.inicioContrato.getDay() + "/" + String(c1.inicioContrato.getMonth() + 1) + "/" + c1.inicioContrato.getFullYear();
-            var fechasFinContrato = c1.finContrato.getDay() + "/" + String(c1.finContrato.getMonth() + 1) + "/" + c1.finContrato.getFullYear();
-
-            throw new Meteor.Error("Contrato", "Existe un contrato vigente con esa fecha, la fecha de inicio intercepta=" + fechaBInicioContrato
-                + " con el contrato vigente:" + fechasInicioContrato + " a " + fechasFinContrato);
-        }
-        if (c2) {
-            var fechaBFinContrato = contrato.finContrato.getDay() + "/" + String(contrato.finContrato.getMonth() + 1) + "/" + contrato.finContrato.getFullYear();
-            var fechasInicioContrato = c2.inicioContrato.getDay() + "/" + String(c2.inicioContrato.getMonth() + 1) + "/" + c2.inicioContrato.getFullYear();
-            var fechasFinContrato = c2.finContrato.getDay() + "/" + String(c2.finContrato.getMonth() + 1) + "/" + c2.finContrato.getFullYear();
-
-            throw new Meteor.Error("Contrato", "Existe un contrato vigente con esa fecha! la fecha de fin intercepta=" + fechaBFinContrato
-                + " con el contrato vigente:" + fechasInicioContrato + " a " + fechasFinContrato);
-        }
-        var costoAlquilerMensual = contrato.costoAlquiler;
-        var anioInicio = contrato.inicioContrato.getFullYear();
-        var anioFin = contrato.finContrato.getFullYear();
-
-        var mesInicio = contrato.inicioContrato.getMonth() + 1;
-        var mesFin = contrato.finContrato.getMonth() + 1;
-
-        var contratoTotal = ((anioFin - anioInicio) * 12 + (mesFin - mesInicio)) * costoAlquilerMensual;
-        contratoTotal = parseFloat(contrato.comisionInmobiliaria) + parseFloat(contratoTotal);
-        //sino se define el sellado se rellena de forma automatica
-        if (!contrato.sellado) {
-            contrato.sellado = (0.012 * contratoTotal);
-        }
-        contrato.impPagare = contrato.pagare * 0.012; //Pagaré 1,2 % del monto del pagaré, firma el garante.
-
-
-        contrato.contratoTotal = contratoTotal;
-        contrato.duracionMeses = ((anioFin - anioInicio) * 12 + (mesFin - mesInicio));
-        idContrato = Contratos.insert(contrato);
-        generarCuponesDePagos(contrato, idContrato);
-        if (contrato.depositoGarantia) {
-            agregarSaldo(contrato.inquilino, contrato.depositoGarantia);
-        }
-
-
-
     }
 
 });

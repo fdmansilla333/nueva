@@ -5,7 +5,7 @@
         {{> afQuickField name='propiedad' options=propiedadesOptions}} {{> afQuickField name='inquilino' options=inquilinoOptions}}
         {{> afQuickField name='garante' options=garanteOptions}}
 
-      <h3 align="center"> Primer período </h3>
+        <h3 align="center"> Primer período </h3>
         <div class="row">
             <div align="center" class="col-sm-4">
                 {{> afQuickField name='inicioContrato'}}
@@ -16,13 +16,13 @@
             <div class="col-sm-4">
                 <div align="center" class="form-group">
                     <div class="input-group">
-                        <span class="input-group-addon ">{{> afQuickField name='costoAlquiler'}}</span>
+                        <span class="input-group-addon ">{{> afQuickField name='costoAlquiler' type='number' step="0.01"}}</span>
                     </div>
                 </div>
             </div>
         </div>
         <hr>
-    <h3 align="center"> Segundo período </h3>
+        <h3 align="center"> Segundo período </h3>
         <div class="row">
             <div align="center" class="col-sm-4">
                 {{> afQuickField name='inicioContrato2'}}
@@ -33,7 +33,7 @@
             <div class="col-sm-4">
                 <div align="center" class="form-group">
                     <div class="input-group">
-                        <span class="input-group-addon ">{{> afQuickField name='costoAlquiler2'}}</span>
+                        <span class="input-group-addon ">{{> afQuickField name='costoAlquiler2' type='number' step="0.01"}}</span>
                     </div>
                 </div>
             </div>
@@ -50,13 +50,13 @@
             <div class="col-sm-4">
                 <div align="center" class="form-group">
                     <div class="input-group">
-                        <span class="input-group-addon ">{{> afQuickField name='costoAlquiler3'}}</span>
+                        <span class="input-group-addon ">{{> afQuickField name='costoAlquiler3' type='number' step="0.01"}}</span>
                     </div>
                 </div>
             </div>
         </div>
         <hr>
-          <h3 align="center"> Cuarto período </h3>
+        <h3 align="center"> Cuarto período </h3>
         <div class="row">
             <div align="center" class="col-sm-4">
                 {{> afQuickField name='inicioContrato4'}}
@@ -67,7 +67,7 @@
             <div class="col-sm-4">
                 <div align="center" class="form-group">
                     <div class="input-group">
-                        <span class="input-group-addon ">{{> afQuickField name='costoAlquiler4'}}</span>
+                        <span class="input-group-addon ">{{> afQuickField name='costoAlquiler4' type='number' step="0.01"}}</span>
                     </div>
                 </div>
             </div>
@@ -77,57 +77,57 @@
 
         <div class="form-group">
             <div class="input-group">
-                <span class="input-group-addon">$</span> {{> afQuickField name='comisionInmobiliaria'}}
+                <span class="input-group-addon">$</span> {{> afQuickField name='comisionInmobiliaria' type='number' step="0.01"}}
                 <span class="input-group-addon">Pesos Argentinos</span>
             </div>
         </div>
         <div class="form-group">
             <div class="input-group">
-                <span class="input-group-addon">%</span> {{> afQuickField name='comisionAdministrativa'}}
+                <span class="input-group-addon">%</span> {{> afQuickField name='comisionAdministrativa' type='number' }}
                 <span class="input-group-addon">Porcentaje</span>
             </div>
         </div>
         <div class="form-group">
             <div class="input-group">
-                <span class="input-group-addon">$</span> {{> afQuickField name='sellado'}}
+                <span class="input-group-addon">$</span> {{> afQuickField name='sellado' type='number' step="0.01"}}
                 <span class="input-group-addon">Pesos Argentinos</span>
             </div>
         </div>
         <div class="form-group">
             <div class="input-group">
-                <span class="input-group-addon">$</span> {{> afQuickField name='multaSellado'}}
+                <span class="input-group-addon">$</span> {{> afQuickField name='multaSellado' type='number' step="0.01"}}
                 <span class="input-group-addon">Pesos Argentinos</span>
             </div>
         </div>
         <div class="form-group">
             <div class="input-group">
-                <span class="input-group-addon">$</span> {{> afQuickField name='pagare'}}
+                <span class="input-group-addon">$</span> {{> afQuickField name='pagare' type='number' step="0.01"}}
                 <span class="input-group-addon">Pesos Argentinos</span>
             </div>
         </div>
         <div class="form-group">
             <div class="input-group">
-                <span class="input-group-addon">$</span> {{> afQuickField name='impPagare'}}
+                <span class="input-group-addon">$</span> {{> afQuickField name='impPagare' type='number' step="0.01"}}
                 <span class="input-group-addon">Pesos Argentinos</span>
             </div>
         </div>
         <div class="form-group">
             <div class="input-group">
-                <span class="input-group-addon">$</span> {{> afQuickField name='depositoGarantia'}}
+                <span class="input-group-addon">$</span> {{> afQuickField name='depositoGarantia' type='number' step="0.01"}}
                 <span class="input-group-addon">Pesos Argentinos</span>
             </div>
         </div>
         {{> afQuickField name='tipoDeMora'}} {{#if tipoDeMoraF}}
         <div class="form-group">
             <div class="input-group">
-                <span class="input-group-addon">%</span> {{> afQuickField name='moraPorcentaje'}}
+                <span class="input-group-addon">%</span> {{> afQuickField name='moraPorcentaje' type='number' step="0.01"}}
                 <span class="input-group-addon">Porcentaje</span>
             </div>
         </div>
         {{else}}
         <div class="form-group">
             <div class="input-group">
-                <span class="input-group-addon">%</span> {{> afQuickField name='moraFijo'}}
+                <span class="input-group-addon">%</span> {{> afQuickField name='moraFijo' type='number'}}
                 <span class="input-group-addon">Porcentaje</span>
             </div>
         </div>
@@ -146,7 +146,9 @@
 
     <div class="container">
         <div class="page-header">
-            <h1>Contratos <small> vista de los contratos</small></h1>
+            <h1>Contratos
+                <small> vista de los contratos</small>
+            </h1>
         </div>
 
         <div class="row">
@@ -163,11 +165,21 @@
             <div class="panel-heading">Lista de contratos</div>
             <table class="table table-hover">
                 <tr>
-                    <td><strong> Propiedad </strong></td>
-                    <td> <strong>Inquilino </strong></td>
-                    <td> <strong>Garante </strong></td>
-                    <td> <strong>costo del Alquiler</strong></td>
-                    <td> <strong>Botones de operaciones</strong></td>
+                    <td>
+                        <strong> Propiedad </strong>
+                    </td>
+                    <td>
+                        <strong>Inquilino </strong>
+                    </td>
+                    <td>
+                        <strong>Garante </strong>
+                    </td>
+                    <td>
+                        <strong>costo del Alquiler</strong>
+                    </td>
+                    <td>
+                        <strong>Botones de operaciones</strong>
+                    </td>
                 </tr>
 
                 {{#EasySearch.Each index=contratos}}
@@ -185,10 +197,10 @@
                         <a href="{{ pathFor 'contratosDetalle' _id=_id}}" class="secondary-content">
                             <i class="material-icons">Detalle </i>
                         </a>
-                         <a href="{{ pathFor 'actualizarContrato' _id=_id}}" class="secondary-content">
+                        <a href="{{ pathFor 'actualizarContrato' _id=_id}}" class="secondary-content">
                             <i class="material-icons">Actualizar </i>
                         </a>
-                         <a href="#" class="pdf">
+                        <a href="#" class="pdf">
                             <i class="material-icons">PDF</i>
                         </a>
                     </span>
@@ -250,18 +262,30 @@
 
 
             <hr size="20" />
-            <h3><strong> Total de contrato: ${{contratoTotal}} </strong></h3>
+            <h3>
+                <strong> Total de contrato: ${{contratoTotal}} </strong>
+            </h3>
 
             <h2 align="center">Cupones de pago</h2>
             {{#if cupones}}
             <table class="table table-hover">
                 <tr>
 
-                    <td> <strong>Periodo</strong></td>
-                    <td> <strong>Importe</strong></td>
-                    <td> <strong>Vencimiento </strong></td>
-                    <td> <strong>Fecha pago </strong></td>
-                    <td> <strong>¿Pagado?</strong></td>
+                    <td>
+                        <strong>Periodo</strong>
+                    </td>
+                    <td>
+                        <strong>Importe</strong>
+                    </td>
+                    <td>
+                        <strong>Vencimiento </strong>
+                    </td>
+                    <td>
+                        <strong>Fecha pago </strong>
+                    </td>
+                    <td>
+                        <strong>¿Pagado?</strong>
+                    </td>
                 </tr>
 
                 {{#each cupon in cupones}}
@@ -274,15 +298,18 @@
                     {{#if cupon.pagado}}
                     <td>{{formatDate cupon.fechaPago}}</td>
                     <span class="right">
-                            <button type="button" class="btn btn-info pagado" name={{cupon._id}}>ver Recibo</button>
-                        </span> {{else}}
+                        <button type="button" class="btn btn-info pagado" name={{cupon._id}}>ver Recibo</button>
+                    </span> {{else}}
                     <td>Falta abonar</td>
                     <span class="right">
-                            <button type="button" class="btn btn-danger pagar" name={{cupon._id}}>Pagar</button>
-                        </span> {{/if}}
 
 
 
+                        <button type="button" class="btn btn-danger pagar" name={{cupon._id}}>Pagar</button>
+
+                        {{> agregarPago}}
+
+                    </span> {{/if}}
 
                 </tr>
                 {{#each servicio in cupon.servicios}}
@@ -306,4 +333,22 @@
             <a href="{{ pathFor 'contratos'}}" class="btn btn-default">Volver </a>
         </div>
     </div>
+</template>
+
+<template name="agregarPago">
+    {{#afModalShow 
+    formId="agregarPago" 
+    collection="Cuotas" 
+    type="insert" 
+    class="btn btn-primary"
+    title="Agregar pago" 
+    prompt="Ingrese el nuevo pago" 
+    buttonContent="Agregar"
+    
+    }}
+ 
+    pagar en cuotas 
+    {{/afModalShow}}
+
+    
 </template>

@@ -32,11 +32,16 @@ CuponesPagos.attachSchema(new SimpleSchema({
     },
     importe: {
         type: Number,
-        label: "Importe adeudado"
+        label: "Importe adeudado",
+        autoform:{
+            step: 0.01,
+            placeholder: "Ingrese el nuevo cupon de pago. Ej 4950.95",
+            
+        }
     },
     fechaVencimiento: {
         type: Date,
-        label: "Fecha de vencimiento"
+        label: "Fecha de vencimiento",
     },
     fechaPago: {
         type: Date,
@@ -63,6 +68,7 @@ CuponesPagos.attachSchema(new SimpleSchema({
 }, { tracker: Tracker }));
 
 
+
 Meteor.methods({
     'cuponesPagos.remove'(cuponId) {
         check(cuponId, String);
@@ -79,5 +85,8 @@ Meteor.methods({
             }
         });
 
+    },
+    'cuponesPagos.agregarPago'(cupon){
+        console.log(cupon);
     }
 });

@@ -1,13 +1,8 @@
 //import { Contratos } from '../../../lib/collections/Contratos';
-
 import { Router } from 'meteor/iron:router';
-
 import { AutoForm } from 'meteor/aldeed:autoform';
-
 import { Meteor } from 'meteor/meteor';
-
 import { NumeroALetras } from '../application/numeroAletras.js';
-
 import { agregarSaldo } from '../../../lib/utilidades.js';
 import { quitarSaldo } from '../../../lib/utilidades.js';
 
@@ -18,29 +13,38 @@ Template.altaContrato.onCreated(function () {
             Router.go('contratos');
         },
         before: {
-          /*  insert: function (document) {
-                Meteor.call('contratos.insert', document, function (error) {
+            insert: function (document) {
+                console.log(document);
+                console.log('Validate form:' + AutoForm.validateForm('altaContrato'));
+                /*
+                
+                To validate a particular field, call AutoForm.validateField(formId, fieldName, skipEmpty). It returns true or false depending on the validity of the field's current value, and it also causes reactive display of any errors for that field in the UI.
+                */
+                //this.resetForm();
+                if (AutoForm.validateForm('altaContrato')) {
+                    Meteor.call('contratos.insert', document, function (error) {
+                        if (error) {
+                            alert(error);
+                            new Error("Error failed");
+                            AutoForm.resetForm('altaContrato');
+                        } else {
+                            console.log('Redireccionando...');
+                            Router.go('contratos');
+                        }
+                    });
+                }
+            }
 
-                    if (error) {
-                        //TODO ver de que forma mostrar mejor los errores, en vez de utilizar alert
-                        alert(error);
-                       new Error("Error failed");
-                    }else{
-                         Router.go('contratos');
-                    }
-                });
 
-               
-            }*/
         },
-        onSubmit: function (insertDoc, updateDoc, currentDoc) { console.log("Onsubmit") },
 
+        onSubmit: function (insertDoc, updateDoc, currentDoc) { console.log("Onsubmit") },
         onError: function (formType, error) { console.log("OnError") },
         beginSubmit: function () { console.log("beginSubmit") },
         endSubmit: function () { console.log("endSubmit") },
         after: {
             // Replace `formType` with the form `type` attribute to which this hook applies
-            insert: function (error, result) { console.log("After") }
+            insert: function (error, result) { console.log("After error:" + error) }
         },
 
     })
@@ -113,6 +117,7 @@ function calcularTotales(cupon) {
     return importe + sumaServicios;
 
 }
+
 Template.contratosDetalle.events({
     'click .pagar': function (event, template) {
         var respuesta = confirm("¿Esta seguro que desea pagar el cupón de pago?");
@@ -168,7 +173,7 @@ Template.contratosDetalle.events({
         cupon = CuponesPagos.findOne({ _id: event.currentTarget.name });
         if (cupon) {
             var doc = new PDFDocument({ size: 'A4', margin: 50 });
-            
+
             doc.fontSize(12);
             doc.text('Nueva Patagonia B&S de Jorge Davies', { align: 'right', width: 500 }).stroke();
             doc.text('Gregorio Mayo 272-9103-Rawson Chubut', { align: 'right', width: 500 }).stroke();
@@ -179,7 +184,7 @@ Template.contratosDetalle.events({
             doc.text('Comprobante definitivo de pago:' + String(cupon._id), { align: 'center', width: 500 }).moveDown(1);
 
             doc.fontSize(12);
-            
+
             doc.text('Código del contrato:' + String(cupon.contrato), { align: 'left', width: 500 }).moveDown(1);
             doc.text('Nro de cuota o período abonado:' + String(cupon.periodo), { align: 'left', width: 500 }).moveDown(1);
             var numeroaletras = NumeroALetras(cupon.importe);
@@ -194,7 +199,7 @@ Template.contratosDetalle.events({
             doc.rect(doc.x, 75, 500, doc.y).stroke();
 
             doc.write(String(cupon._id) + '.pdf');
-           
+
 
         }
 
@@ -271,4 +276,46 @@ Template.altaContrato.helpers({
             return true;
         }
     }
+});
+
+var data;
+Template.agregarPago.onCreated(function () {
+    data = this;
+    AutoForm.addHooks(['agregarPago'], {
+        onSuccess: function (operacion, result, template) {
+           console.log('success');
+        },
+        before: {
+            insert: function (document) {
+                
+                
+                document.contrato = data.data._id;
+               
+                    Meteor.call('cuotas.insert', document, function (error) {
+                        if (error) {
+                            alert(error);
+                            new Error("Error failed");
+                            AutoForm.resetForm('agregarPago');
+                        } else {
+                            console.log('Redireccionando...');
+                            Router.go('contratos');
+                            
+                        }
+                    });
+                
+            }
+
+
+        },
+
+        onSubmit: function (insertDoc, updateDoc, currentDoc) { console.log("Onsubmit") },
+        onError: function (formType, error) { console.log("OnError") },
+        beginSubmit: function () { console.log("beginSubmit") },
+        endSubmit: function () { console.log("endSubmit") },
+        after: {
+            // Replace `formType` with the form `type` attribute to which this hook applies
+            insert: function (error, result) { console.log("After error:" + error) }
+        },
+
+    })
 });

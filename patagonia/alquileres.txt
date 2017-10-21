@@ -6,28 +6,28 @@ OK!
 
 Controlar cuit y dni, que sean los mismos.
 Libreta civica. #preguntar Tener en cuenta que existe libreta de enrolamiento
-Dentro de persona, Persona jurídica y persona física.
+Dentro de persona, Persona jurï¿½dica y persona fï¿½sica.
 Ok!
 
-Si es jurídica: cuit, razon social, representante legal (nombre completo, cuit, domicilio),apoderado legal(nombre completo, cuit, domicilio)  poder o acta de representación (tilde), archivo referido a la representación
+Si es jurï¿½dica: cuit, razon social, representante legal (nombre completo, cuit, domicilio),apoderado legal(nombre completo, cuit, domicilio)  poder o acta de representaciï¿½n (tilde), archivo referido a la representaciï¿½n
 ok!
 
-**agregar sección Personas físicas, Personas jurídicas 
+**agregar secciï¿½n Personas fï¿½sicas, Personas jurï¿½dicas 
 Modal, salgan la carga de personas. 
-Agregar recuadros por temática
+Agregar recuadros por temï¿½tica
 Listo!
 
-Miércoles
+Miï¿½rcoles
 #Inmuebles
 vista agregarImagenInmueble cambiar campo, codigo del inmueble
-aparezca nombre del propietario y dirección del inmueble
+aparezca nombre del propietario y direcciï¿½n del inmueble
 OK!
 
 Mostrar mensaje que cargo la foto o no. ok!
 
 Carga de imagen y luego nombre. ok!
-Agregar campo descripción. ok!
-Agregar si es posible presentación. ok!
+Agregar campo descripciï¿½n. ok!
+Agregar si es posible presentaciï¿½n. ok!
 
 Codigo del inmueble = automatizado, ascendente. no visible. VER! (codigo del objeto manejado internamente) ok!
 
@@ -39,7 +39,7 @@ planos tilde, fotos tilde
 ok!
 
 Jueves
-#Sección de inventario de bienes:
+#Secciï¿½n de inventario de bienes:
 Cuenta con... agregar tilde y descripcion
 OK!
 
@@ -57,13 +57,13 @@ OK!
 OK!
 
 Viernes
-#sección contratos... 
-combo codigo busca por propietario -> dirección -> código ok!
+#secciï¿½n contratos... 
+combo codigo busca por propietario -> direcciï¿½n -> cï¿½digo ok!
 Comision administrativa a porcentaje -> ok!
 
 Sellado es 1,2% de la totalidad del contrato, para el inquilino y para el propietario (mitad)--ok
 
-Pagaré 1,2 % del monto del pagaré, firma el garante. ok!
+Pagarï¿½ 1,2 % del monto del pagarï¿½, firma el garante. ok!
 
 
 Obligatorios, nombre, apellido, dni-lc, cuit, ok!
@@ -72,13 +72,13 @@ Obligatorios, nombre, apellido, dni-lc, cuit, ok!
 La comision administrativa va al propietario ok!
 
 
-Agregar corrimiento de días, para vencimiento de periodos, y habilitarlo el cambio en futuro sin cambiar valores confirmados
+Agregar corrimiento de dï¿½as, para vencimiento de periodos, y habilitarlo el cambio en futuro sin cambiar valores confirmados
 ok!
 
 La inmobiliaria inquilino y propietario
 Multa del sellado, y sellado miti y miti
 Contratos obligatorios: periodos, partes intervinientes, monto,
-Deposito en garantía, si/no, monto, impacta en el saldo del inquilino a favor.
+Deposito en garantï¿½a, si/no, monto, impacta en el saldo del inquilino a favor.
 Agregar campo garante. (Tiene persona)
 
 ok!
@@ -89,10 +89,10 @@ ok!
 #Caja --> pasa a ser saldo ok!
 
 #Generacion de recibos
-Generacion de pago, existen pagos parciales. Calculo de la mora apartir de 10 días de corrimiento del vencimiento mensual.  La mora puede ser un porcentaje del valor mensual o fijo por dia. ok!
+Generacion de pago, existen pagos parciales. Calculo de la mora apartir de 10 dï¿½as de corrimiento del vencimiento mensual.  La mora puede ser un porcentaje del valor mensual o fijo por dia. ok!
 
 
-Las reparaciones pueden ir a cargo de la inmobiliaria, o a cargo del propietario. Si van a cargo del propietario tiene que aparecer en el recibo. Si va en la inmobiliaria deben registrarse como un movimiento. Producto, cantidad y valor, descripción o concepto
+Las reparaciones pueden ir a cargo de la inmobiliaria, o a cargo del propietario. Si van a cargo del propietario tiene que aparecer en el recibo. Si va en la inmobiliaria deben registrarse como un movimiento. Producto, cantidad y valor, descripciï¿½n o concepto
 ok!
 
 Las reparaciones tienen que tener un tilde, para pagar en efectivo.
@@ -101,54 +101,62 @@ ok!
 
  
 
-Condición ante el iva: monotributista, resposable inscripto, exento, no inscripto, 
+Condiciï¿½n ante el iva: monotributista, resposable inscripto, exento, no inscripto, 
 ok
 
 
 TODO falta agregar las tarifas de los servicios, y que repercutan en los recibos ok
 
 un papel:
-Dirección del inmueble--> direccion del inmueble ok!
+Direcciï¿½n del inmueble--> direccion del inmueble ok!
 
 
 Campo barrio ok!
-Cambiar fecha de reparación a fecha de pago  ok!
+Cambiar fecha de reparaciï¿½n a fecha de pago  ok!
 
 
 
 
 2do papel:
-poder agregar varios peridosos en contrato Haciendo
+poder agregar varios peridosos en contrato OK!
 
-campo agregar multa, multa numérico, mitad inquilino mitad propietario
-los períodos son semestales
-que no excedean los peridoos del ambito del contrato
-campo multa, suma fij, por día
-porcentaje por día de mora
-agregar pago parcial
 
-Al momento del pago se puede cancelar el pago
-Pagos parciales.
-apicados a los siguientes períodos
+los perï¿½odos son semestales ok! 
+
+que no excedean los peridoos del ambito del contrato ok
+
+campo multa, suma fij, por dÃ­a ok
+porcentaje por dÃ­a de mora ok
+agregar en el contrato el costo de administraciï¿½n inmoiliaria ok!
+
+
+
+1-10-2017 empezar!
+
+agregar pago parcial ok.
+campo agregar multa, multa numï¿½rico, mitad inquilino mitad propietario haciendo! cuando se hace la actualizacion ok
+
+Al momento del pago se puede cancelar el pago ok
+Pagos parciales. hacerlo con modal. 
+apicados a los siguientes perï¿½odos
 cantidad de cuotas
 al momento de pagar generar un pdf con el logo del recibo
-nro de recibo 8 dígitos
+nro de recibo 8 dï¿½gitos
 y agregar campo de firmas
 5% es ingreso por alquiler en la inmobiliaria
-agregar en el contrato el costo de administración inmoiliaria
-valor alquiler --> propietario liquidación
+valor alquiler --> propietario liquidaciï¿½n
 5% alquiler inmobiliaria
-5% interés--> inmobiliaria
+5% interï¿½s--> inmobiliaria
 consocio/expensas en los servicios
 saldo 7 caja
 
 tercer papel
 
-contratos períodos, sacar importe pagaré
-deposito de garantía importe en la garantía
+contratos perï¿½odos, sacar importe pagarï¿½
+deposito de garantï¿½a importe en la garantï¿½a
 pago del propietarario SACAR
 todos los item del detalle 
-datos de importes a liquidación .--> rendión pendientes --> histórico de rendiciones
+datos de importes a liquidaciï¿½n .--> rendiï¿½n pendientes --> histï¿½rico de rendiciones
 ver saldos del propietario.
 
 
@@ -161,7 +169,7 @@ Notas de debito, para los servicios.
 
 
 Baja de contrato. baja anticipada de contrato
-Manejo de contratos, cuando se tiene un venta/alquiler en el inmueble, si se vende, tiene que cancelarse el contrato, con la entrega de la llave. Resicisión anticipada del contrato.
+Manejo de contratos, cuando se tiene un venta/alquiler en el inmueble, si se vende, tiene que cancelarse el contrato, con la entrega de la llave. Resicisiï¿½n anticipada del contrato.
 
 Las liquidaciones del propietario son opcionales/eventuales
 Agregar notas de credito a personas 
@@ -172,8 +180,14 @@ Pueda hacerse de tres formas
 1) Liquida, muestra el recibo.
 
 
-cuestiones estéticas
+cuestiones estï¿½ticas
 
 En alta de inmueble, agrandar datos del inmueble
 tipo de bien adentro de domicilio
-imagenes - tener opción en solapa descripción a poder editar caaundo esta cargada la foto
+imagenes - tener opciï¿½n en solapa descripciï¿½n a poder editar caaundo esta cargada la foto
+
+preguntar
+1- a la hora de cargar los peridoos deben ser corridos semestralmente...?
+2 - es obligatorio la carga del sellado?
+3 - como es el proceso de entrega de llaves, como se trabaja con el desposito?
+4 - los pagos parciales generan intereses?
